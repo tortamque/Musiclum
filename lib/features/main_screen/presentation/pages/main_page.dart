@@ -31,8 +31,37 @@ class MainPage extends StatelessWidget {
               Expanded(
                 child: ListView.builder(
                   itemCount: state.artists!.length,
-                  itemBuilder: (context, index) => ListTile(
+                  itemBuilder: (context, index) => /*ListTile(
                     title: Text(state.artists![index].name),
+                  ),*/
+                  Card(
+                    child: Row(
+                      children: [
+                        ClipOval(
+                          child: Image.network(
+                            width: 100, 
+                            height: 100,
+                            fit: BoxFit.cover, 
+                            state.artists![index].images.isNotEmpty
+                              ? state.artists![index].images[0].url
+                              : 'https://pdtxar.com/wp-content/uploads/2019/04/person-placeholder.jpg',
+                            loadingBuilder: (context, child, loadingProgress) {
+                              if (loadingProgress == null) {
+                                return child;
+                              }
+                              return Center(
+                                child: CircularProgressIndicator(
+                                  value: loadingProgress.expectedTotalBytes != null
+                                      ? loadingProgress.cumulativeBytesLoaded / loadingProgress.expectedTotalBytes!
+                                      : null,
+                                ),
+                              );
+                            },
+                          ),
+                        ),
+                        Text(state.artists![index].name),
+                      ],
+                    )
                   ),
                 ),
               ),
