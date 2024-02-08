@@ -1,18 +1,7 @@
 import 'package:equatable/equatable.dart';
 
-class Artist extends Equatable{
-  final ExternalUrls externalUrls;
-  final Followers followers;
-  final List<String> genres;
-  final String href;
-  final String id;
-  final List<Image> images;
-  final String name;
-  final int popularity;
-  final String type;
-  final String uri;
-
-  const Artist({
+class ArtistEntity extends Equatable{
+  const ArtistEntity({
     required this.externalUrls,
     required this.followers,
     required this.genres,
@@ -25,13 +14,24 @@ class Artist extends Equatable{
     required this.uri,
   });
 
-  factory Artist.fromJson(Map<String, dynamic> json) => Artist(
-        externalUrls: ExternalUrls.fromJson(json['external_urls']),
-        followers: Followers.fromJson(json['followers']),
+  final ExternalUrlsEntity externalUrls;
+  final FollowersEntity followers;
+  final List<String> genres;
+  final String href;
+  final String id;
+  final List<ImageEntity> images;
+  final String name;
+  final int popularity;
+  final String type;
+  final String uri;
+
+  factory ArtistEntity.fromJson(Map<String, dynamic> json) => ArtistEntity(
+        externalUrls: ExternalUrlsEntity.fromJson(json['external_urls']),
+        followers: FollowersEntity.fromJson(json['followers']),
         genres: List<String>.from(json['genres']),
         href: json['href'],
         id: json['id'],
-        images: List<Image>.from(json['images'].map((x) => Image.fromJson(x))),
+        images: List<ImageEntity>.from(json['images'].map((x) => ImageEntity.fromJson(x))),
         name: json['name'],
         popularity: json['popularity'],
         type: json['type'],
@@ -53,12 +53,12 @@ class Artist extends Equatable{
   ];
 }
 
-class ExternalUrls extends Equatable{
+class ExternalUrlsEntity extends Equatable{
   final String spotify;
 
-  const ExternalUrls({required this.spotify});
+  const ExternalUrlsEntity({required this.spotify});
 
-  factory ExternalUrls.fromJson(Map<String, dynamic> json) => ExternalUrls(
+  factory ExternalUrlsEntity.fromJson(Map<String, dynamic> json) => ExternalUrlsEntity(
         spotify: json['spotify'],
       );
       
@@ -66,13 +66,13 @@ class ExternalUrls extends Equatable{
   List<Object?> get props => [spotify];
 }
 
-class Followers extends Equatable {
+class FollowersEntity extends Equatable {
   final String? href;
   final int total;
 
-  const Followers({this.href, required this.total});
+  const FollowersEntity({this.href, required this.total});
 
-  factory Followers.fromJson(Map<String, dynamic> json) => Followers(
+  factory FollowersEntity.fromJson(Map<String, dynamic> json) => FollowersEntity(
         href: json['href'],
         total: json['total'],
       );
@@ -81,18 +81,18 @@ class Followers extends Equatable {
   List<Object?> get props => [href, total];
 }
 
-class Image extends Equatable{
+class ImageEntity extends Equatable{
   final String url;
   final int height;
   final int width;
 
-  const Image({
+  const ImageEntity({
     required this.url,
     required this.height,
     required this.width,
   });
 
-  factory Image.fromJson(Map<String, dynamic> json) => Image(
+  factory ImageEntity.fromJson(Map<String, dynamic> json) => ImageEntity(
         url: json['url'],
         height: json['height'],
         width: json['width'],
