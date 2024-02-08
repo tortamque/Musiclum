@@ -58,7 +58,9 @@ class _CustomSearchBar extends StatelessWidget {
   final TextEditingController _controller = TextEditingController();
 
   void _searchArtist(String value, BuildContext context){
-    BlocProvider.of<SearchBloc>(context).add(SearchArtistsEvent(query: value.trim()));
+    if(value.isNotEmpty){
+      BlocProvider.of<SearchBloc>(context).add(SearchArtistsEvent(query: value.trim()));
+    }
   }
 
   @override
