@@ -11,8 +11,8 @@ abstract class ApiService{
 
   @GET('/search')
   Future<HttpResponse<List<ArtistModel>>> searchArtists({
-    @Query('q') String query,
-    @Query('type') String type,
-    @Header('Authorization') String authToken,
+    @Query('q') required String query,
+    @Query('type') required String type,
+    @Header('Authorization') required String authToken,
   });
 }
