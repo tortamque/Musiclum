@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 
 class ArtistPreviewCard extends StatelessWidget {
-  const ArtistPreviewCard({super.key, required this.artistName, required this.photoUrl});
+  const ArtistPreviewCard({super.key, required this.artistName, required this.photoUrl, required this.imageSize});
 
   final String photoUrl;
   final String artistName;
+  final double imageSize;
 
   @override
   Widget build(BuildContext context) => Card(
     child: Row(
       children: [
-        _NetworkImage(photoUrl: photoUrl),
+        _NetworkImage(photoUrl: photoUrl, imageSize: imageSize),
         _ArtistName(artistName: artistName),
       ],
     ),
@@ -18,9 +19,10 @@ class ArtistPreviewCard extends StatelessWidget {
 }
 
 class _NetworkImage extends StatelessWidget {
-  const _NetworkImage({required this.photoUrl});
+  const _NetworkImage({required this.photoUrl, required this.imageSize});
 
   final String photoUrl;
+  final double imageSize;
 
   @override
   Widget build(BuildContext context) => Padding(
@@ -28,18 +30,22 @@ class _NetworkImage extends StatelessWidget {
     child: ClipOval(
       child: Image.network(
         photoUrl,
-        width: 75, 
-        height: 75,
+        width: imageSize, 
+        height: imageSize,
         fit: BoxFit.cover, 
         loadingBuilder: (context, child, loadingProgress) {
           if (loadingProgress == null) {
             return child;
           }
           return Center(
-            child: CircularProgressIndicator(
-              value: loadingProgress.expectedTotalBytes != null
-                  ? loadingProgress.cumulativeBytesLoaded / loadingProgress.expectedTotalBytes!
-                  : null,
+            child: SizedBox(
+              width: imageSize,
+              height: imageSize,
+              child: CircularProgressIndicator(
+                value: loadingProgress.expectedTotalBytes != null
+                    ? loadingProgress.cumulativeBytesLoaded / loadingProgress.expectedTotalBytes!
+                    : null,
+              ),
             ),
           );
         },

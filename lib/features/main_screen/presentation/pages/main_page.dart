@@ -14,44 +14,51 @@ class MainPage extends StatelessWidget {
     body: BlocBuilder<SearchBloc, SearchState>(
       builder: (context, state) {
         if(state is SearchArtistsLoading){
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
+          return _bodyLoading();
         } 
         if(state is SearchArtistsError){
-          return Column(
-            children: [
-              _CustomSearchBar(),
-              const Text('Opps 😔! Something went wrong. Try again.'),
-            ],
-          );
+          return _bodyError();
         }
         if(state is SearchArtistsDone){
-          return Padding(
-            padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
-            child: ListView.builder(
-              itemCount: state.artists!.length + 1,
-              itemBuilder: (context, index){
-                if(index == 0){
-                  return _CustomSearchBar();
-                } else{
-                  final artistIndex = index - 1;
-                  
-                  return ArtistPreviewCard(
-                    photoUrl: state.artists![artistIndex].images.isNotEmpty
-                      ? state.artists![artistIndex].images[0].url
-                      : defaultAvatarUrl,
-                    artistName: state.artists![artistIndex].name,
-                  );
-                }
-              }
-            ),
-          );
+          return _bodySuccessful(state);
         }
 
         return const SizedBox();
       },
-    )
+    ),
+  );
+
+  Widget _bodySuccessful(SearchArtistsDone state)=> Padding(
+    padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+    child: ListView.builder(
+      itemCount: state.artists!.length + 1,
+      itemBuilder: (context, index){
+        if(index == 0){
+          return _CustomSearchBar();
+        } else{
+          final artistIndex = index - 1;
+          
+          return ArtistPreviewCard(
+            photoUrl: state.artists![artistIndex].images.isNotEmpty
+              ? state.artists![artistIndex].images[0].url
+              : defaultAvatarUrl,
+            artistName: state.artists![artistIndex].name,
+            imageSize: 75,
+          );
+        }
+      },
+    ),
+  );
+
+  Widget _bodyError() => Column(
+    children: [
+      _CustomSearchBar(),
+      const Text('Opps 😔! Something went wrong. Try again.'),
+    ],
+  );
+
+  Widget _bodyLoading() => const Center(
+    child: CircularProgressIndicator(),
   );
 }
 
