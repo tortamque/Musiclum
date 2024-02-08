@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:musiclum/core/constants/ui_constants.dart';
 import 'package:musiclum/core/shared/presentation/widgets/custom_app_bar.dart';
-import 'package:musiclum/features/main_screen/presentation/bloc/bloc/search_artists_bloc.dart';
+import 'package:musiclum/features/main_screen/presentation/bloc/search_artists_bloc.dart';
 import 'package:musiclum/features/main_screen/presentation/widgets/artist_preview_card.dart';
 
 class MainPage extends StatelessWidget {
