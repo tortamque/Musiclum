@@ -1,5 +1,6 @@
 import 'package:musiclum/core/shared/data/models/artist_model.dart';
 import 'package:musiclum/core/shared/domain/entities/album_entity.dart';
+import 'package:musiclum/core/shared/domain/entities/artist_entity.dart';
 
 class AlbumModel extends AlbumEntity {
   const AlbumModel({
