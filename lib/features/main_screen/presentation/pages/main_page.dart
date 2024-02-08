@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:musiclum/core/shared/presentation/widgets/custom_app_bar.dart';
+import 'package:musiclum/features/main_screen/presentation/bloc/bloc/search_bloc.dart';
 
 class MainPage extends StatelessWidget {
   const MainPage({super.key});
@@ -7,13 +9,40 @@ class MainPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Scaffold(
     appBar: const CustomAppBar(title: 'Home'),
-    body: Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 15),
-      child: Column(
-        children: [
-          _CustomSearchBar(),
-        ],
-      ),
+    body: BlocBuilder<SearchBloc, SearchState>(
+      builder: (context, state) {
+        if(state is SearchArtistsLoading){
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        } 
+        if(state is SearchArtistsError){
+          print(state.error);
+          return Column(
+            children: [
+              _CustomSearchBar(),
+              const Text('Opps 😔! Something went wrong. Try again.'),
+            ],
+          );
+        }
+        if(state is SearchArtistsDone){
+          return Column(
+            children: [
+              _CustomSearchBar(),
+              Expanded(
+                child: ListView.builder(
+                  itemCount: state.artists!.length,
+                  itemBuilder: (context, index) => ListTile(
+                    title: Text(state.artists![index].name),
+                  ),
+                ),
+              ),
+            ],
+          );
+        }
+
+        return const SizedBox();
+      },
     )
   );
 }
