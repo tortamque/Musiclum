@@ -13,7 +13,7 @@ class SearchRepositoryImpl implements SearchRepository{
   final ApiService _apiService;  
 
   @override
-  Future<DataState<List<ArtistModel>>> getArtists(String query) async {
+  Future<DataState<List<ArtistModel>>> searchArtists(String query) async {
     try{
       final response = await _apiService.searchArtists(
         query: query,
