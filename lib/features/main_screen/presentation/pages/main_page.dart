@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:musiclum/core/constants/ui_constants.dart';
 import 'package:musiclum/core/shared/presentation/widgets/custom_app_bar.dart';
 import 'package:musiclum/features/main_screen/presentation/bloc/bloc/search_bloc.dart';
+import 'package:musiclum/features/main_screen/presentation/widgets/artist_preview_card.dart';
 
 class MainPage extends StatelessWidget {
   const MainPage({super.key});
@@ -25,47 +27,22 @@ class MainPage extends StatelessWidget {
           );
         }
         if(state is SearchArtistsDone){
-          return Column(
-            children: [
-              _CustomSearchBar(),
-              Expanded(
-                child: ListView.builder(
-                  itemCount: state.artists!.length,
-                  itemBuilder: (context, index) => /*ListTile(
-                    title: Text(state.artists![index].name),
-                  ),*/
-                  Card(
-                    child: Row(
-                      children: [
-                        ClipOval(
-                          child: Image.network(
-                            width: 100, 
-                            height: 100,
-                            fit: BoxFit.cover, 
-                            state.artists![index].images.isNotEmpty
-                              ? state.artists![index].images[0].url
-                              : 'https://pdtxar.com/wp-content/uploads/2019/04/person-placeholder.jpg',
-                            loadingBuilder: (context, child, loadingProgress) {
-                              if (loadingProgress == null) {
-                                return child;
-                              }
-                              return Center(
-                                child: CircularProgressIndicator(
-                                  value: loadingProgress.expectedTotalBytes != null
-                                      ? loadingProgress.cumulativeBytesLoaded / loadingProgress.expectedTotalBytes!
-                                      : null,
-                                ),
-                              );
-                            },
-                          ),
-                        ),
-                        Text(state.artists![index].name),
-                      ],
-                    )
-                  ),
-                ),
-              ),
-            ],
+          return ListView.builder(
+            itemCount: state.artists!.length + 1,
+            itemBuilder: (context, index){
+              if(index == 0){
+                return _CustomSearchBar();
+              } else{
+                final artistIndex = index - 1;
+                
+                return ArtistPreviewCard(
+                  photoUrl: state.artists![artistIndex].images.isNotEmpty
+                    ? state.artists![artistIndex].images[0].url
+                    : defaultAvatarUrl,
+                  artistName: state.artists![artistIndex].name,
+                );
+              }
+            }
           );
         }
 
