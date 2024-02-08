@@ -1,19 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:musiclum/core/constants/navigator_constants.dart';
+import 'package:musiclum/core/shared/domain/entities/artist_entity.dart';
 
 class ArtistPreviewCard extends StatelessWidget {
-  const ArtistPreviewCard({super.key, required this.artistName, required this.photoUrl, required this.imageSize});
+  const ArtistPreviewCard({super.key, required this.artistName, required this.photoUrl, required this.imageSize, required this.artistEntity});
 
   final String photoUrl;
   final String artistName;
   final double imageSize;
+  final ArtistEntity artistEntity;
 
   @override
-  Widget build(BuildContext context) => Card(
-    child: Row(
-      children: [
-        _NetworkImage(photoUrl: photoUrl, imageSize: imageSize),
-        _ArtistName(artistName: artistName),
-      ],
+  Widget build(BuildContext context) => GestureDetector(
+    onTap: () => Navigator.pushNamed(context, artistInfoScreen, arguments: artistEntity),
+    child: Card(
+      child: Row(
+        children: [
+          _NetworkImage(photoUrl: photoUrl, imageSize: imageSize),
+          _ArtistName(artistName: artistName),
+        ],
+      ),
     ),
   );
 }

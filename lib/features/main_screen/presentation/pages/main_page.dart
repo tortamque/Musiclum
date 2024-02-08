@@ -44,6 +44,7 @@ class MainPage extends StatelessWidget {
               : defaultAvatarUrl,
             artistName: state.artists![artistIndex].name,
             imageSize: 75,
+            artistEntity: state.artists![artistIndex],
           );
         }
       },
