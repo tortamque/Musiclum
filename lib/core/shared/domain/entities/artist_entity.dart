@@ -25,19 +25,6 @@ class ArtistEntity extends Equatable{
   final String type;
   final String uri;
 
-  factory ArtistEntity.fromJson(Map<String, dynamic> json) => ArtistEntity(
-        externalUrls: ExternalUrlsEntity.fromJson(json['external_urls']),
-        followers: FollowersEntity.fromJson(json['followers']),
-        genres: List<String>.from(json['genres']),
-        href: json['href'],
-        id: json['id'],
-        images: List<ImageEntity>.from(json['images'].map((x) => ImageEntity.fromJson(x))),
-        name: json['name'],
-        popularity: json['popularity'],
-        type: json['type'],
-        uri: json['uri'],
-      );
-      
   @override
   List<Object?> get props => [
     externalUrls,
@@ -54,13 +41,9 @@ class ArtistEntity extends Equatable{
 }
 
 class ExternalUrlsEntity extends Equatable{
-  final String spotify;
-
   const ExternalUrlsEntity({required this.spotify});
 
-  factory ExternalUrlsEntity.fromJson(Map<String, dynamic> json) => ExternalUrlsEntity(
-        spotify: json['spotify'],
-      );
+  final String spotify;
       
   @override
   List<Object?> get props => [spotify];
@@ -71,11 +54,6 @@ class FollowersEntity extends Equatable {
   final int total;
 
   const FollowersEntity({this.href, required this.total});
-
-  factory FollowersEntity.fromJson(Map<String, dynamic> json) => FollowersEntity(
-        href: json['href'],
-        total: json['total'],
-      );
       
   @override
   List<Object?> get props => [href, total];
@@ -91,12 +69,6 @@ class ImageEntity extends Equatable{
     required this.height,
     required this.width,
   });
-
-  factory ImageEntity.fromJson(Map<String, dynamic> json) => ImageEntity(
-        url: json['url'],
-        height: json['height'],
-        width: json['width'],
-      );
       
   @override
   List<Object?> get props => [url, height, width];
