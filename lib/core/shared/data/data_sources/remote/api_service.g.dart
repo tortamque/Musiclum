@@ -59,7 +59,7 @@ class _ApiService implements ApiService {
   }
 
   @override
-  Future<HttpResponse<List<AlbumModel>>> getArtistAlbums({
+  Future<HttpResponse<List<UserAlbumModel>>> getArtistAlbums({
     required String artistId,
     required String authToken,
   }) async {
@@ -69,7 +69,7 @@ class _ApiService implements ApiService {
     _headers.removeWhere((k, v) => v == null);
     const Map<String, dynamic>? _data = null;
     final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<HttpResponse<List<AlbumModel>>>(Options(
+        _setStreamType<HttpResponse<List<UserAlbumModel>>>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
@@ -85,9 +85,41 @@ class _ApiService implements ApiService {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    List<AlbumModel> value = _result.data!['items']
-        .map<AlbumModel>((dynamic i) => AlbumModel.fromJson(i as Map<String, dynamic>))
+    List<UserAlbumModel> value = _result.data!['items']
+        .map<UserAlbumModel>((dynamic i) => UserAlbumModel.fromJson(i as Map<String, dynamic>))
         .toList();
+    final httpResponse = HttpResponse(value, _result);
+    return httpResponse;
+  }
+
+  @override
+  Future<HttpResponse<AlbumModel>> getAlbumDetails({
+    required String albumId,
+    required String authToken,
+  }) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{r'Authorization': authToken};
+    _headers.removeWhere((k, v) => v == null);
+    const Map<String, dynamic>? _data = null;
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<HttpResponse<AlbumModel>>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/albums/${albumId}',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    AlbumModel value = AlbumModel.fromJson(_result.data!);
     final httpResponse = HttpResponse(value, _result);
     return httpResponse;
   }

@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:musiclum/core/constants/api_constants.dart';
+import 'package:musiclum/core/shared/data/models/album_model.dart';
 import 'package:musiclum/core/shared/data/models/user_album_model.dart';
 import 'package:musiclum/core/shared/data/models/artist_model.dart';
 import 'package:retrofit/retrofit.dart';
@@ -23,5 +24,9 @@ abstract class ApiService{
     @Header('Authorization') required String authToken,
   });
 
-
+  @GET('/albums/{id}')
+  Future<HttpResponse<AlbumModel>> getAlbumDetails({
+    @Path('id') required String albumId,
+    @Header('Authorization') required String authToken,
+  });
 }
