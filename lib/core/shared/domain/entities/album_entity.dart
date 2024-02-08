@@ -1,21 +1,20 @@
 import 'package:equatable/equatable.dart';
-import 'package:musiclum/core/shared/domain/entities/artist_entity.dart';
 
 class AlbumEntity extends Equatable {
   final String albumType;
   final int totalTracks;
   final List<String> availableMarkets;
-  final ExternalUrlsEntity externalUrls;
+  final AlbumExternalUrlsEntity externalUrls;
   final String href;
   final String id;
-  final List<ImageEntity> images;
+  final List<AlbumImageEntity> images;
   final String name;
   final String releaseDate;
   final String releaseDatePrecision;
-  final RestrictionsEntity? restrictions;
+  final AlbumRestrictionsEntity? restrictions;
   final String type;
   final String uri;
-  final List<ArtistEntity> artists;
+  final List<AlbumArtistEntity> artists;
   final String albumGroup;
 
   const AlbumEntity({
@@ -37,14 +36,71 @@ class AlbumEntity extends Equatable {
   });
 
   @override
-  List<Object?> get props => [id];
+  List<Object?> get props => [
+        albumType,
+        totalTracks,
+        availableMarkets,
+        externalUrls,
+        href,
+        id,
+        images,
+        name,
+        releaseDate,
+        releaseDatePrecision,
+        restrictions,
+        type,
+        uri,
+        artists,
+        albumGroup,
+      ];
 }
 
-class RestrictionsEntity extends Equatable {
+class AlbumExternalUrlsEntity extends Equatable {
+  final String spotify;
+
+  const AlbumExternalUrlsEntity({required this.spotify});
+
+  @override
+  List<Object?> get props => [spotify];
+}
+
+class AlbumImageEntity extends Equatable {
+  final String url;
+  final int height;
+  final int width;
+
+  const AlbumImageEntity({required this.url, required this.height, required this.width});
+
+  @override
+  List<Object?> get props => [url, height, width];
+}
+
+class AlbumRestrictionsEntity extends Equatable {
   final String reason;
 
-  const RestrictionsEntity({required this.reason});
+  const AlbumRestrictionsEntity({required this.reason});
 
   @override
   List<Object?> get props => [reason];
+}
+
+class AlbumArtistEntity extends Equatable {
+  const AlbumArtistEntity({
+    required this.externalUrls,
+    required this.href,
+    required this.id,
+    required this.name,
+    required this.type,
+    required this.uri,
+  });
+
+  final AlbumExternalUrlsEntity externalUrls;
+  final String href;
+  final String id;
+  final String name;
+  final String type;
+  final String uri;
+
+  @override
+  List<Object?> get props => [externalUrls, href, id, name, type, uri];
 }
