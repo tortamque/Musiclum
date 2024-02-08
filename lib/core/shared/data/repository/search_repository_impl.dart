@@ -5,6 +5,7 @@ import 'package:musiclum/core/resources/data_state.dart';
 import 'package:musiclum/core/sensitive.dart';
 import 'package:musiclum/core/shared/data/data_sources/remote/api_service.dart';
 import 'package:musiclum/core/shared/data/models/artist_model.dart';
+import 'package:musiclum/core/shared/domain/entities/album_entity.dart';
 import 'package:musiclum/core/shared/domain/repository/search_repository.dart';
 
 class SearchRepositoryImpl implements SearchRepository{
@@ -18,6 +19,31 @@ class SearchRepositoryImpl implements SearchRepository{
       final response = await _apiService.searchArtists(
         query: query,
         type: 'artist',
+        authToken: 'Authorization: Bearer $token'
+      );
+
+      if(response.response.statusCode == HttpStatus.ok){
+        return DataSuccess(response.data);
+      } else{
+        return DataFailed(
+          DioError(
+            error: response.response.statusMessage,
+            response: response.response,
+            type: DioErrorType.badResponse,
+            requestOptions: response.response.requestOptions
+          )
+        );
+      }
+    } on DioError catch(e){
+      return DataFailed(e);
+    }
+  }
+
+  @override
+  Future<DataState<List<AlbumEntity>>> getArtistAlbums(String artistId) async {
+    try{
+      final response = await _apiService.getArtistAlbums(
+        artistId: artistId,
         authToken: 'Authorization: Bearer $token'
       );
 
