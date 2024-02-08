@@ -27,22 +27,25 @@ class MainPage extends StatelessWidget {
           );
         }
         if(state is SearchArtistsDone){
-          return ListView.builder(
-            itemCount: state.artists!.length + 1,
-            itemBuilder: (context, index){
-              if(index == 0){
-                return _CustomSearchBar();
-              } else{
-                final artistIndex = index - 1;
-                
-                return ArtistPreviewCard(
-                  photoUrl: state.artists![artistIndex].images.isNotEmpty
-                    ? state.artists![artistIndex].images[0].url
-                    : defaultAvatarUrl,
-                  artistName: state.artists![artistIndex].name,
-                );
+          return Padding(
+            padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+            child: ListView.builder(
+              itemCount: state.artists!.length + 1,
+              itemBuilder: (context, index){
+                if(index == 0){
+                  return _CustomSearchBar();
+                } else{
+                  final artistIndex = index - 1;
+                  
+                  return ArtistPreviewCard(
+                    photoUrl: state.artists![artistIndex].images.isNotEmpty
+                      ? state.artists![artistIndex].images[0].url
+                      : defaultAvatarUrl,
+                    artistName: state.artists![artistIndex].name,
+                  );
+                }
               }
-            }
+            ),
           );
         }
 
