@@ -1,7 +1,7 @@
-import 'package:musiclum/core/shared/domain/entities/album_entity.dart';
+import 'package:musiclum/core/shared/domain/entities/user_album_entity.dart';
 
-class AlbumModel extends AlbumEntity {
-  const AlbumModel({
+class UserAlbumModel extends UserAlbumEntity {
+  const UserAlbumModel({
     required super.albumType,
     required super.totalTracks,
     required super.availableMarkets,
@@ -19,7 +19,7 @@ class AlbumModel extends AlbumEntity {
     required super.albumGroup,
   });
 
-  factory AlbumModel.fromJson(Map<String, dynamic> json) => AlbumModel(
+  factory UserAlbumModel.fromJson(Map<String, dynamic> json) => UserAlbumModel(
       albumType: json['album_type'] as String,
       totalTracks: json['total_tracks'] as int,
       availableMarkets: List<String>.from(json['available_markets']),

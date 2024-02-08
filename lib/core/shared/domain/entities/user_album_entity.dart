@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 
-class AlbumEntity extends Equatable {
+class UserAlbumEntity extends Equatable {
   final String albumType;
   final int totalTracks;
   final List<String> availableMarkets;
@@ -17,7 +17,7 @@ class AlbumEntity extends Equatable {
   final List<AlbumArtistEntity> artists;
   final String albumGroup;
 
-  const AlbumEntity({
+  const UserAlbumEntity({
     required this.albumType,
     required this.totalTracks,
     required this.availableMarkets,

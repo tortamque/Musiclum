@@ -1,10 +1,10 @@
 import 'package:dio/dio.dart';
-import 'package:musiclum/core/shared/domain/entities/album_entity.dart';
+import 'package:musiclum/core/shared/domain/entities/user_album_entity.dart';
 
 sealed class ArtistInfoState {
   const ArtistInfoState({this.albums, this.error});
 
-  final List<AlbumEntity>? albums;
+  final List<UserAlbumEntity>? albums;
   final DioError? error;
 }
 
@@ -13,7 +13,7 @@ final class GetArtistInfoLoading extends ArtistInfoState {
 }
 
 final class GetArtistInfoDone extends ArtistInfoState {
-  const GetArtistInfoDone(List<AlbumEntity> albums) : super(albums: albums);
+  const GetArtistInfoDone(List<UserAlbumEntity> albums) : super(albums: albums);
 }
 
 final class GetArtistInfoError extends ArtistInfoState {

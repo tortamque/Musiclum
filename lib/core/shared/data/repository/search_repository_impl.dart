@@ -5,7 +5,7 @@ import 'package:musiclum/core/resources/data_state.dart';
 import 'package:musiclum/core/sensitive.dart';
 import 'package:musiclum/core/shared/data/data_sources/remote/api_service.dart';
 import 'package:musiclum/core/shared/data/models/artist_model.dart';
-import 'package:musiclum/core/shared/domain/entities/album_entity.dart';
+import 'package:musiclum/core/shared/domain/entities/user_album_entity.dart';
 import 'package:musiclum/core/shared/domain/repository/search_repository.dart';
 
 class SearchRepositoryImpl implements SearchRepository{
@@ -40,7 +40,7 @@ class SearchRepositoryImpl implements SearchRepository{
   }
 
   @override
-  Future<DataState<List<AlbumEntity>>> getArtistAlbums(String artistId) async {
+  Future<DataState<List<UserAlbumEntity>>> getArtistAlbums(String artistId) async {
     try{
       final response = await _apiService.getArtistAlbums(
         artistId: artistId,
