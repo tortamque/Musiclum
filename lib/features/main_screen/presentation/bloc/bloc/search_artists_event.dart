@@ -1,4 +1,4 @@
-part of 'search_bloc.dart';
+part of 'search_artists_bloc.dart';
 
 sealed class SearchEvent extends Equatable {
   const SearchEvent();

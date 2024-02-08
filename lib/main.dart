@@ -4,7 +4,7 @@ import 'package:musiclum/config/theme/app_theme.dart';
 import 'package:musiclum/core/constants/navigator_constants.dart';
 import 'package:musiclum/core/service_locator.dart';
 import 'package:musiclum/features/artist_info/presentation/pages/artist_info_screen.dart';
-import 'package:musiclum/features/main_screen/presentation/bloc/bloc/search_bloc.dart';
+import 'package:musiclum/features/main_screen/presentation/bloc/bloc/search_artists_bloc.dart';
 import 'package:musiclum/features/main_screen/presentation/pages/main_page.dart';
 
 void main() {
@@ -19,7 +19,7 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) => MultiBlocProvider(
     providers: [
       // Execute
-      BlocProvider<SearchBloc>(create: (context) => getIt<SearchBloc>()..add(const SearchArtistsEvent(query: 'Rock'))),
+      BlocProvider<SearchArtistsBloc>(create: (context) => getIt<SearchArtistsBloc>()..add(const SearchArtistsEvent(query: 'Rock'))),
     ],
     child: MaterialApp(
       theme: theme(colorPrimary),
