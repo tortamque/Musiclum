@@ -34,7 +34,7 @@ class _ApiService implements ApiService {
     final _headers = <String, dynamic>{r'Authorization': authToken};
     _headers.removeWhere((k, v) => v == null);
     const Map<String, dynamic>? _data = null;
-    final _result = await _dio.fetch<List<dynamic>>(
+    final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<HttpResponse<List<ArtistModel>>>(Options(
       method: 'GET',
       headers: _headers,
@@ -51,8 +51,8 @@ class _ApiService implements ApiService {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    var value = _result.data!
-        .map((dynamic i) => ArtistModel.fromJson(i as Map<String, dynamic>))
+    List<ArtistModel> value = _result.data!['artists']['items']
+        .map<ArtistModel>((dynamic i) => ArtistModel.fromJson(i as Map<String, dynamic>))
         .toList();
     final httpResponse = HttpResponse(value, _result);
     return httpResponse;
