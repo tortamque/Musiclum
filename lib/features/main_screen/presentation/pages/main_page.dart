@@ -17,7 +17,6 @@ class MainPage extends StatelessWidget {
           );
         } 
         if(state is SearchArtistsError){
-          print(state.error);
           return Column(
             children: [
               _CustomSearchBar(),
@@ -52,8 +51,8 @@ class _CustomSearchBar extends StatelessWidget {
 
   final TextEditingController _controller = TextEditingController();
 
-  void _searchArtist(String value){
-    print(value);
+  void _searchArtist(String value, BuildContext context){
+    BlocProvider.of<SearchBloc>(context).add(SearchArtistsEvent(query: value.trim()));
   }
 
   @override
@@ -64,9 +63,9 @@ class _CustomSearchBar extends StatelessWidget {
       hintText: 'Search for an artists by name',
       leading: IconButton(
         icon: const Icon(Icons.search),
-        onPressed: () => _searchArtist(_controller.text),
+        onPressed: () => _searchArtist(_controller.text, context),
       ),
-      onSubmitted: (value) => _searchArtist(value),
+      onSubmitted: (value) => _searchArtist(value, context),
     ),
   );
 }

@@ -1,13 +1,10 @@
 part of 'search_bloc.dart';
 
-sealed class SearchState extends Equatable {
+sealed class SearchState {
   const SearchState({this.artists, this.error});
 
   final List<ArtistEntity>? artists;
   final DioError? error;
-  
-  @override
-  List<Object> get props => [artists!, error!];
 }
 
 final class SearchArtistsLoading extends SearchState {
