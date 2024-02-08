@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:musiclum/core/constants/navigator_constants.dart';
 import 'package:musiclum/core/shared/domain/entities/artist_entity.dart';
+import 'package:musiclum/features/artist_info/presentation/bloc/artist_info_bloc.dart';
+import 'package:musiclum/features/artist_info/presentation/bloc/artist_info_event.dart';
 
 class ArtistPreviewCard extends StatelessWidget {
   const ArtistPreviewCard({super.key, required this.artistName, required this.photoUrl, required this.imageSize, required this.artistEntity});
@@ -12,7 +15,10 @@ class ArtistPreviewCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => GestureDetector(
-    onTap: () => Navigator.pushNamed(context, artistInfoScreen, arguments: artistEntity),
+    onTap: () {
+      BlocProvider.of<ArtistInfoBloc>(context).add(GetArtistInfoEvent(artistId: ''));
+      Navigator.pushNamed(context, artistInfoScreen, arguments: artistEntity);
+    },
     child: Card(
       child: Row(
         children: [

@@ -11,7 +11,7 @@ class AlbumEntity extends Equatable {
   final String name;
   final String releaseDate;
   final String releaseDatePrecision;
-  final AlbumRestrictionsEntity restrictions;
+  final AlbumRestrictionsEntity? restrictions;
   final String type;
   final String uri;
   final List<AlbumArtistEntity> artists;
@@ -33,7 +33,7 @@ class AlbumEntity extends Equatable {
     required this.name,
     required this.releaseDate,
     required this.releaseDatePrecision,
-    required this.restrictions,
+    this.restrictions,
     required this.type,
     required this.uri,
     required this.artists,
@@ -71,23 +71,23 @@ class AlbumEntity extends Equatable {
 }
 
 class AlbumRestrictionsEntity extends Equatable {
-  final String reason;
+  final String? reason;
 
-  const AlbumRestrictionsEntity({required this.reason});
+  const AlbumRestrictionsEntity({this.reason});
 
   @override
   List<Object?> get props => [reason];
 }
 
 class AlbumExternalIdsEntity extends Equatable {
-  final String isrc;
-  final String ean;
-  final String upc;
+  final String? isrc;
+  final String? ean;
+  final String? upc;
 
   const AlbumExternalIdsEntity({
-    required this.isrc,
-    required this.ean,
-    required this.upc,
+    this.isrc,
+    this.ean,
+    this.upc,
   });
 
   @override
@@ -153,18 +153,18 @@ class AlbumArtistEntity extends Equatable {
 class AlbumTracksEntity extends Equatable {
   final String href;
   final int limit;
-  final String next;
+  final String? next;
   final int offset;
-  final String previous;
+  final String? previous;
   final int total;
   final List<AlbumTrackItemEntity> items;
 
   const AlbumTracksEntity({
     required this.href,
     required this.limit,
-    required this.next,
+    this.next,
     required this.offset,
-    required this.previous,
+    this.previous,
     required this.total,
     required this.items,
   });
@@ -190,7 +190,7 @@ class AlbumTrackItemEntity extends Equatable {
   final AlbumExternalUrlsEntity externalUrls;
   final String href;
   final String id;
-  final bool isPlayable;
+  final bool? isPlayable;
   final AlbumLinkedFromEntity? linkedFrom;
   final AlbumRestrictionsEntity? restrictions;
   final String name;
@@ -209,7 +209,7 @@ class AlbumTrackItemEntity extends Equatable {
     required this.externalUrls,
     required this.href,
     required this.id,
-    required this.isPlayable,
+    this.isPlayable,
     this.linkedFrom,
     this.restrictions,
     required this.name,
@@ -252,16 +252,16 @@ class AlbumExternalUrlsEntity extends Equatable {
 }
 
 class AlbumLinkedFromEntity extends Equatable {
-  final String href;
-  final String id;
-  final String type;
-  final String uri;
+  final String? href;
+  final String? id;
+  final String? type;
+  final String? uri;
 
   const AlbumLinkedFromEntity({
-    required this.href,
-    required this.id,
-    required this.type,
-    required this.uri,
+    this.href,
+    this.id,
+    this.type,
+    this.uri,
   });
 
   @override
