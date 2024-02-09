@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:like_button/like_button.dart';
@@ -156,15 +157,15 @@ class _SongList extends StatelessWidget {
     padding: const EdgeInsets.symmetric(horizontal: 20),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: songs.map(
-        (song)=> Padding(
+      children: songs.mapIndexed(
+        (index, song)=> Padding(
             padding: const EdgeInsets.symmetric(vertical: 2.5),
             child: SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: Row(
                 children: [
                   Text(
-                    '${song.index}) ${song.title} | ${song.durationMs ~/ 60000}:${(song.durationMs % 60000 ~/ 1000).toString().padLeft(2, '0')}',
+                    '${index + 1}) ${song.title} | ${song.durationMs ~/ 60000}:${(song.durationMs % 60000 ~/ 1000).toString().padLeft(2, '0')}',
                     style: const TextStyle(
                       fontSize: 18,
                     )
