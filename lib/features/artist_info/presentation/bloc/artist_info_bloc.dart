@@ -24,6 +24,8 @@ class ArtistInfoBloc extends Bloc<ArtistInfoEvent, ArtistInfoState> {
   final GetAlbumCoverUseCase _getAlbumCoverUseCase;
 
   Future<void> _onSearchArtists(GetArtistInfoEvent event, Emitter<ArtistInfoState> emitter) async{
+    emit(const GetArtistInfoLoading());
+
     final albums = <ParsedAlbumEntity>[];
 
     final dataStateAlbums = await _getAlbumsUseCase(event.artistId);
