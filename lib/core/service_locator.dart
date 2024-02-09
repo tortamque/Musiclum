@@ -10,6 +10,7 @@ import 'package:musiclum/core/shared/domain/entities/hive/parsed_album_entity.da
 import 'package:musiclum/core/shared/domain/entities/hive/parsed_song_entity.dart';
 import 'package:musiclum/core/shared/domain/repository/db_repository.dart';
 import 'package:musiclum/core/shared/domain/repository/search_repository.dart';
+import 'package:musiclum/core/shared/domain/usecases/delete_song_usecase.dart';
 import 'package:musiclum/core/shared/domain/usecases/save_song_usecase.dart';
 import 'package:musiclum/features/artist_info/domain/usecases/get_album_cover_usecase.dart';
 import 'package:musiclum/features/artist_info/domain/usecases/get_album_details_usecase.dart';
@@ -48,6 +49,7 @@ var box = await _initializeBox();
     ..registerSingleton<GetAlbumCoverUseCase>(GetAlbumCoverUseCase(getIt()))
     ..registerSingleton<IsSongSavedUseCase>(IsSongSavedUseCase(getIt()))
     ..registerSingleton<SaveSongUseCase>(SaveSongUseCase(getIt()))
+    ..registerSingleton<DeleteSongUseCase>(DeleteSongUseCase(getIt()))
 
     // Bloc
     ..registerFactory<SearchArtistsBloc>(() => SearchArtistsBloc(getIt()))

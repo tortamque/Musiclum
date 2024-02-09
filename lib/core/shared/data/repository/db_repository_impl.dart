@@ -57,4 +57,7 @@ class DBRepositoryImpl implements DBRepository{
 
   @override
   Future<void> saveSong({required ParsedSongEntity parsedSongEntity, required ParsedAlbumEntity parsedAlbumEntity}) => _databaseService.saveSong(parsedSongEntity: parsedSongEntity, parsedAlbumEntity: parsedAlbumEntity);
+  
+  @override
+  Future<void> deleteSong({required String songName, required String albumName, required String artistName}) => _databaseService.deleteSong(songName: songName, albumName: albumName, artistName: artistName);
 }

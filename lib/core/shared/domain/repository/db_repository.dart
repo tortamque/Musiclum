@@ -6,4 +6,5 @@ abstract class DBRepository{
   bool isSongAlreadySaved({required String songName, required String albumName, required String artistName});
   List<SortedArtistEntity>? getSortedArtists();
   Future<void> saveSong({required ParsedSongEntity parsedSongEntity, required ParsedAlbumEntity parsedAlbumEntity});
+  Future<void> deleteSong({required String songName, required String albumName, required String artistName});
 }
