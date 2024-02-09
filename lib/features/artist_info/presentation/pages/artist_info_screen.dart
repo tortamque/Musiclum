@@ -145,23 +145,18 @@ class _ArtistInfo extends StatelessWidget {
   );
 }
 
-class _SongList extends StatefulWidget {
+class _SongList extends StatelessWidget {
   const _SongList({required this.songs, required this.album});
 
   final List<ParsedSongEntity> songs;
   final ParsedAlbumEntity album;
 
   @override
-  State<_SongList> createState() => _SongListState();
-}
-
-class _SongListState extends State<_SongList> {
-  @override
   Widget build(BuildContext context) => Padding(
     padding: const EdgeInsets.symmetric(horizontal: 20),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: widget.songs.map(
+      children: songs.map(
         (song)=> Padding(
             padding: const EdgeInsets.symmetric(vertical: 2.5),
             child: SingleChildScrollView(
@@ -178,8 +173,8 @@ class _SongListState extends State<_SongList> {
                     isLiked: getIt<IsSongSavedUseCase>()(
                       IsSongSavedParams(
                         songName: song.title,
-                        albumName: widget.album.albumName,
-                        artistName: widget.album.artistName,
+                        albumName: album.albumName,
+                        artistName: album.artistName,
                       ),
                     ),
                     circleColor: CircleColor(
@@ -195,7 +190,11 @@ class _SongListState extends State<_SongList> {
                       color: isLiked ? Theme.of(context).colorScheme.primary : Colors.grey,
                     ),
                     onTap: (isLiked) async {
-                      await getIt<DatabaseService>().saveSong(parsedSongEntity: song, parsedAlbumEntity: widget.album);
+                      if(isLiked == false){
+                        await getIt<DatabaseService>().saveSong(parsedSongEntity: song, parsedAlbumEntity: album);
+                      } else{
+                        await getIt<DatabaseService>().deleteSong(songName: song.title, albumName: album.albumName, artistName: album.artistName);
+                      }
 
                       return !isLiked;
                     },
