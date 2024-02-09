@@ -21,11 +21,14 @@ class ArtistPreviewCard extends StatelessWidget {
       Navigator.pushNamed(context, artistInfoScreen, arguments: artistEntity);
     },
     child: Card(
-      child: Row(
-        children: [
-          _NetworkImage(photoUrl: photoUrl, imageSize: imageSize),
-          _ArtistName(artistName: artistName),
-        ],
+      child: SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: Row(
+          children: [
+            _NetworkImage(photoUrl: photoUrl, imageSize: imageSize),
+            _ArtistName(artistName: artistName),
+          ],
+        ),
       ),
     ),
   );

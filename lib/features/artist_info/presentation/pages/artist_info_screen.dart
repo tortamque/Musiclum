@@ -119,23 +119,25 @@ class _ArtistInfo extends StatelessWidget {
   final String name;
 
   @override
-  Widget build(BuildContext context) => Row(
-    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-    children: [
-      ClipOval(
-        child: CustomNetworkImage(
-          photoUrl: avatarUrl,
-          imageSize: 65,
+  Widget build(BuildContext context) => SingleChildScrollView(
+    scrollDirection: Axis.horizontal,
+    child: Row(
+      children: [
+        ClipOval(
+          child: CustomNetworkImage(
+            photoUrl: avatarUrl,
+            imageSize: 65,
+          ),
         ),
-      ),
-
-      Text(
-        name,
-        style: const TextStyle(
-          fontSize: 22,
+        const SizedBox(width: 30),
+        Text(
+          name,
+          style: const TextStyle(
+            fontSize: 22,
+          ),
         ),
-      ),
-    ],
+      ],
+    ),
   );
 }
 
