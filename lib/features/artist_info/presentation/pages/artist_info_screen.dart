@@ -101,7 +101,7 @@ class _AlbumCover extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => ClipRRect(
-    borderRadius: BorderRadius.circular(20),
+    borderRadius: BorderRadius.circular(30),
     child: CustomNetworkImage(
       photoUrl: albumCoverUrl,
       imageSize: 250,
