@@ -26,6 +26,7 @@ class DBRepositoryImpl implements DBRepository{
           name: album.artistName,
           imageUrl: album.artistAvatar, 
           songs: album.songs.map((song) => SortedSongEntity(
+            albumName: album.albumName,
             albumCoverUrl: album.albumCoverUrl,
             title: song.title,
             durationMs: song.durationMs,
@@ -33,6 +34,7 @@ class DBRepositoryImpl implements DBRepository{
         );
       } else {
         var newSongs = album.songs.map((song) => SortedSongEntity(
+          albumName: album.albumName,
           albumCoverUrl: album.albumCoverUrl,
           title: song.title,
           durationMs: song.durationMs,

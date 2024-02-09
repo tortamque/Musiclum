@@ -7,9 +7,10 @@ class SortedArtistEntity{
 }
 
 class SortedSongEntity{
-  SortedSongEntity({required this.albumCoverUrl, required this.title, required this.durationMs});
+  SortedSongEntity({required this.albumName, required this.albumCoverUrl, required this.title, required this.durationMs});
 
   final String albumCoverUrl;
+  final String albumName;
   final String title;
   final int durationMs;
 }
