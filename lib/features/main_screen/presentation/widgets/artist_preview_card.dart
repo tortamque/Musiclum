@@ -4,8 +4,8 @@ import 'package:musiclum/core/constants/navigator_constants.dart';
 import 'package:musiclum/core/constants/ui_constants.dart';
 import 'package:musiclum/core/shared/domain/entities/artist_entity.dart';
 import 'package:musiclum/core/shared/presentation/widgets/custom_network_image.dart';
-import 'package:musiclum/features/artist_info/presentation/bloc/artist_info_bloc.dart';
-import 'package:musiclum/features/artist_info/presentation/bloc/artist_info_event.dart';
+import 'package:musiclum/features/artist_info/presentation/bloc/artist_info/artist_info_bloc.dart';
+import 'package:musiclum/features/artist_info/presentation/bloc/artist_info/artist_info_event.dart';
 
 class ArtistPreviewCard extends StatelessWidget {
   const ArtistPreviewCard({super.key, required this.artistName, required this.photoUrl, required this.imageSize, required this.artistEntity});

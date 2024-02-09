@@ -11,8 +11,8 @@ import 'package:musiclum/core/shared/domain/entities/hive/parsed_song_entity.dar
 import 'package:musiclum/features/artist_info/domain/usecases/get_album_cover_usecase.dart';
 import 'package:musiclum/features/artist_info/domain/usecases/get_album_details_usecase.dart';
 import 'package:musiclum/features/artist_info/domain/usecases/get_albums_usecase.dart';
-import 'package:musiclum/features/artist_info/presentation/bloc/artist_info_event.dart';
-import 'package:musiclum/features/artist_info/presentation/bloc/artist_info_state.dart';
+import 'package:musiclum/features/artist_info/presentation/bloc/artist_info/artist_info_event.dart';
+import 'package:musiclum/features/artist_info/presentation/bloc/artist_info/artist_info_state.dart';
 
 class ArtistInfoBloc extends Bloc<ArtistInfoEvent, ArtistInfoState> {
   ArtistInfoBloc(this._getAlbumsUseCase, this._getAlbumDetailsUseCase, this._getAlbumCoverUseCase) : super(const GetArtistInfoLoading()) {

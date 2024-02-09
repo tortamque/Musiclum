@@ -11,7 +11,7 @@ import 'package:musiclum/core/shared/domain/repository/search_repository.dart';
 import 'package:musiclum/features/artist_info/domain/usecases/get_album_cover_usecase.dart';
 import 'package:musiclum/features/artist_info/domain/usecases/get_album_details_usecase.dart';
 import 'package:musiclum/features/artist_info/domain/usecases/get_albums_usecase.dart';
-import 'package:musiclum/features/artist_info/presentation/bloc/artist_info_bloc.dart';
+import 'package:musiclum/features/artist_info/presentation/bloc/artist_info/artist_info_bloc.dart';
 import 'package:musiclum/features/main_screen/domain/usecases/search_artists_usecase.dart';
 import 'package:musiclum/features/main_screen/presentation/bloc/search_artists_bloc.dart';
 
