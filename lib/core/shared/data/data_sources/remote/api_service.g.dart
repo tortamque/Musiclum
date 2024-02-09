@@ -110,7 +110,7 @@ class _ApiService implements ApiService {
     )
             .compose(
               _dio.options,
-              '/albums/${albumId}',
+              '/albums/${albumId}/tracks',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -119,7 +119,7 @@ class _ApiService implements ApiService {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    AlbumModel value = AlbumModel.fromJson(_result.data!);
+    final value = AlbumModel.fromJson(_result.data!);
     final httpResponse = HttpResponse(value, _result);
     return httpResponse;
   }

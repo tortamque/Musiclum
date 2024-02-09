@@ -17,8 +17,8 @@ class ArtistInfoBloc extends Bloc<ArtistInfoEvent, ArtistInfoState> {
 
   Future<void> _onSearchArtists(GetArtistInfoEvent event, Emitter<ArtistInfoState> emitter) async{
     final dataState = await _getAlbumsUseCase(event.artistId);
-    final a = await _getAlbumDetailsUseCase('0XfbMn9N6vzDybKtXBIKx0');
-    print(a.data!.name);
+    final a = await _getAlbumDetailsUseCase('7m7h3FCsN4UDopNjDdggTb');
+    print(a.data!.items![0].name);
 
     if(dataState is DataSuccess){
       emit(

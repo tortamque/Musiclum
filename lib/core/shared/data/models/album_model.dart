@@ -2,151 +2,48 @@ import 'package:musiclum/core/shared/domain/entities/album_entity.dart';
 
 class AlbumModel extends AlbumEntity {
   const AlbumModel({
-    required super.albumType,
-    required super.totalTracks,
-    required super.availableMarkets,
-    required super.externalUrls,
-    required super.href,
-    required super.id,
-    required super.images,
-    required super.name,
-    required super.releaseDate,
-    required super.releaseDatePrecision,
-    super.restrictions,
-    required super.type,
-    required super.uri,
-    required super.artists,
-    required super.tracks,
-    required super.copyrights,
-    required super.externalIds,
-    required super.genres,
-    required super.label,
-    required super.popularity,
+    super.href,
+    super.items,
+    super.limit,
+    super.next,
+    super.offset,
+    super.previous,
+    super.total,
   });
 
   factory AlbumModel.fromJson(Map<String, dynamic> json) => AlbumModel(
-    albumType: json['album_type'],
-    totalTracks: json['total_tracks'],
-    availableMarkets: List<String>.from(json['available_markets']),
-    externalUrls: AlbumExternalUrlsModel.fromJson(json['external_urls']),
     href: json['href'],
-    id: json['id'],
-    images: List<AlbumImageModel>.from(json['images'].map((x) => AlbumImageModel.fromJson(x))),
-    name: json['name'],
-    releaseDate: json['release_date'],
-    releaseDatePrecision: json['release_date_precision'],
-    restrictions: json['restrictions'] != null ? AlbumRestrictionsModel.fromJson(json['restrictions'] as Map<String, dynamic>) : null,
-    type: json['type'],
-    uri: json['uri'],
-    artists: List<AlbumArtistModel>.from(json['artists'].map((x) => AlbumArtistModel.fromJson(x))),
-    tracks: AlbumTracksModel.fromJson(json['tracks']),
-    copyrights: List<AlbumCopyrightModel>.from(json['copyrights'].map((x) => AlbumCopyrightModel.fromJson(x))),
-    externalIds: AlbumExternalIdsModel.fromJson(json['external_ids']),
-    genres: List<String>.from(json['genres']),
-    label: json['label'],
-    popularity: json['popularity'],
-  );
-}
-
-class AlbumRestrictionsModel extends AlbumRestrictionsEntity {
-  const AlbumRestrictionsModel({super.reason});
-
-  factory AlbumRestrictionsModel.fromJson(Map<String, dynamic> json) => AlbumRestrictionsModel(
-    reason: json['reason'],
-  );
-}
-
-class AlbumExternalIdsModel extends AlbumExternalIdsEntity {
-  const AlbumExternalIdsModel({
-    super.isrc,
-    super.ean,
-    super.upc,
-  });
-
-  factory AlbumExternalIdsModel.fromJson(Map<String, dynamic> json) => AlbumExternalIdsModel(
-    isrc: json['isrc'],
-    ean: json['ean'],
-    upc: json['upc'],
-  );
-}
-
-class AlbumImageModel extends AlbumImageEntity {
-  const AlbumImageModel({
-    required super.url,
-    required super.height,
-    required super.width,
-  });
-
-  factory AlbumImageModel.fromJson(Map<String, dynamic> json) => AlbumImageModel(
-    url: json['url'],
-    height: json['height'],
-    width: json['width'],
-  );
-}
-
-class AlbumArtistModel extends AlbumArtistEntity {
-  const AlbumArtistModel({
-    required super.externalUrls,
-    required super.href,
-    required super.id,
-    required super.name,
-    required super.type,
-    required super.uri,
-  });
-
-  factory AlbumArtistModel.fromJson(Map<String, dynamic> json) => AlbumArtistModel(
-    externalUrls: AlbumExternalUrlsModel.fromJson(json['external_urls']),
-    href: json['href'],
-    id: json['id'],
-    name: json['name'],
-    type: json['type'],
-    uri: json['uri'],
-  );
-}
-
-class AlbumTracksModel extends AlbumTracksEntity {
-  const AlbumTracksModel({
-    required super.href,
-    required super.limit,
-    super.next,
-    required super.offset,
-    super.previous,
-    required super.total,
-    required super.items,
-  });
-  factory AlbumTracksModel.fromJson(Map<String, dynamic> json) => AlbumTracksModel(
-    href: json['href'],
+    items: List<AlbumTrackModel>.from(json['items'].map((x) => AlbumTrackModel.fromJson(x))),
     limit: json['limit'],
     next: json['next'],
     offset: json['offset'],
     previous: json['previous'],
     total: json['total'],
-    items: List<AlbumTrackItemModel>.from(json['items'].map((x) => AlbumTrackItemModel.fromJson(x))),
   );
 }
 
-class AlbumTrackItemModel extends AlbumTrackItemEntity {
-  const AlbumTrackItemModel({
-    required super.artists,
-    required super.availableMarkets,
-    required super.discNumber,
-    required super.durationMs,
-    required super.explicit,
-    required super.externalUrls,
-    required super.href,
-    required super.id,
+class AlbumTrackModel extends AlbumTrackEntity {
+  const AlbumTrackModel({
+    super.artists,
+    super.availableMarkets,
+    super.discNumber,
+    super.durationMs,
+    super.explicit,
+    super.externalUrls,
+    super.href,
+    super.id,
     super.isPlayable,
-    required super.linkedFrom,
-    required super.restrictions,
-    required super.name,
-    required super.previewUrl,
-    required super.trackNumber,
-    required super.type,
-    required super.uri,
-    required super.isLocal,
+    super.linkedFrom,
+    super.restrictions,
+    super.name,
+    super.previewUrl,
+    super.trackNumber,
+    super.type,
+    super.uri,
+    super.isLocal,
   });
 
-  factory AlbumTrackItemModel.fromJson(Map<String, dynamic> json) => AlbumTrackItemModel(
+  factory AlbumTrackModel.fromJson(Map<String, dynamic> json) => AlbumTrackModel(
     artists: List<AlbumArtistModel>.from(json['artists'].map((x) => AlbumArtistModel.fromJson(x))),
     availableMarkets: List<String>.from(json['available_markets']),
     discNumber: json['disc_number'],
@@ -156,8 +53,8 @@ class AlbumTrackItemModel extends AlbumTrackItemEntity {
     href: json['href'],
     id: json['id'],
     isPlayable: json['is_playable'],
-    linkedFrom: AlbumLinkedFromModel.fromJson(json['linked_from'] ?? {}),
-    restrictions: AlbumRestrictionsModel.fromJson(json['restrictions'] ?? {}),
+    linkedFrom: json['linked_from'] != null ? AlbumLinkedFromModel.fromJson(json['linked_from']) : null,
+    restrictions: json['restrictions'] != null ? AlbumRestrictionsModel.fromJson(json['restrictions']) : null,
     name: json['name'],
     previewUrl: json['preview_url'],
     trackNumber: json['track_number'],
@@ -167,38 +64,60 @@ class AlbumTrackItemModel extends AlbumTrackItemEntity {
   );
 }
 
-class AlbumCopyrightModel extends AlbumCopyrightEntity {
-  const AlbumCopyrightModel({
-    required super.text,
-    required super.type,
+class AlbumArtistModel extends AlbumArtistEntity {
+  const AlbumArtistModel({
+    super.id,
+    super.name,
+    super.href,
+    super.type,
+    super.uri,
+    super.externalUrls,
   });
 
-  factory AlbumCopyrightModel.fromJson(Map<String, dynamic> json) => AlbumCopyrightModel(
-    text: json['text'],
+  factory AlbumArtistModel.fromJson(Map<String, dynamic> json) => AlbumArtistModel(
+    id: json['id'],
+    name: json['name'],
+    href: json['href'],
     type: json['type'],
+    uri: json['uri'],
+    externalUrls: AlbumExternalUrlsModel.fromJson(json['external_urls']),
   );
 }
 
 class AlbumExternalUrlsModel extends AlbumExternalUrlsEntity {
-  const AlbumExternalUrlsModel({required super.spotify});
+  const AlbumExternalUrlsModel({super.spotify});
 
-  factory AlbumExternalUrlsModel.fromJson(Map<String, dynamic> json) => AlbumExternalUrlsModel(
+  factory AlbumExternalUrlsModel.fromJson(Map<String, dynamic> json) {
+    return AlbumExternalUrlsModel(
       spotify: json['spotify'],
     );
+  }
 }
 
 class AlbumLinkedFromModel extends AlbumLinkedFromEntity {
   const AlbumLinkedFromModel({
-    super.href,
     super.id,
-    super.type,
     super.uri,
+    super.href,
+    super.type,
   });
 
-  factory AlbumLinkedFromModel.fromJson(Map<String, dynamic> json) => AlbumLinkedFromModel(
-      href: json['href'],
+  factory AlbumLinkedFromModel.fromJson(Map<String, dynamic> json) {
+    return AlbumLinkedFromModel(
       id: json['id'],
-      type: json['type'],
       uri: json['uri'],
+      href: json['href'],
+      type: json['type'],
     );
+  }
+}
+
+class AlbumRestrictionsModel extends AlbumRestrictionsEntity {
+  const AlbumRestrictionsModel({super.reason});
+
+  factory AlbumRestrictionsModel.fromJson(Map<String, dynamic> json) {
+    return AlbumRestrictionsModel(
+      reason: json['reason'],
+    );
+  }
 }
