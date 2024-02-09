@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:musiclum/core/constants/ui_constants.dart';
 import 'package:musiclum/core/shared/presentation/widgets/custom_app_bar.dart';
-import 'package:musiclum/features/main_screen/presentation/bloc/bloc/search_bloc.dart';
+import 'package:musiclum/features/main_screen/presentation/bloc/search_artists_bloc.dart';
 import 'package:musiclum/features/main_screen/presentation/widgets/artist_preview_card.dart';
 
 class MainPage extends StatelessWidget {
@@ -11,7 +11,7 @@ class MainPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Scaffold(
     appBar: const CustomAppBar(title: 'Home'),
-    body: BlocBuilder<SearchBloc, SearchState>(
+    body: BlocBuilder<SearchArtistsBloc, SearchState>(
       builder: (context, state) {
         if(state is SearchArtistsLoading){
           return _bodyLoading();
@@ -39,11 +39,12 @@ class MainPage extends StatelessWidget {
           final artistIndex = index - 1;
           
           return ArtistPreviewCard(
-            photoUrl: state.artists![artistIndex].images.isNotEmpty
-              ? state.artists![artistIndex].images[0].url
+            photoUrl: state.artists![artistIndex].images!.isNotEmpty
+              ? state.artists![artistIndex].images![0].url ?? defaultAvatarUrl
               : defaultAvatarUrl,
-            artistName: state.artists![artistIndex].name,
+            artistName: state.artists![artistIndex].name ?? 'No name found',
             imageSize: 75,
+            artistEntity: state.artists![artistIndex],
           );
         }
       },
@@ -69,7 +70,7 @@ class _CustomSearchBar extends StatelessWidget {
 
   void _searchArtist(String value, BuildContext context){
     if(value.isNotEmpty){
-      BlocProvider.of<SearchBloc>(context).add(SearchArtistsEvent(query: value.trim()));
+      BlocProvider.of<SearchArtistsBloc>(context).add(SearchArtistsEvent(query: value.trim()));
     }
   }
 

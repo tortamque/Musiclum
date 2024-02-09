@@ -7,11 +7,11 @@ import 'package:musiclum/core/resources/data_state.dart';
 import 'package:musiclum/core/shared/domain/entities/artist_entity.dart';
 import 'package:musiclum/features/main_screen/domain/usecases/search_artists_usecase.dart';
 
-part 'search_event.dart';
-part 'search_state.dart';
+part 'search_artists_event.dart';
+part 'search_artists_state.dart';
 
-class SearchBloc extends Bloc<SearchEvent, SearchState> {
-  SearchBloc(this._searchArtistsUseCase) : super(const SearchArtistsLoading()) {
+class SearchArtistsBloc extends Bloc<SearchEvent, SearchState> {
+  SearchArtistsBloc(this._searchArtistsUseCase) : super(const SearchArtistsLoading()) {
     on<SearchArtistsEvent>(_onSearchArtists);
   }
 
