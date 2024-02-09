@@ -16,7 +16,7 @@ class CustomLikeButton extends StatelessWidget {
     required this.onSave, 
     required this.song, 
     required this.album, 
-    required this.onDelete,
+    required this.onDelete, required this.onSaveParams, required this.onDeleteParams,
   });
 
   final String songName;
@@ -25,7 +25,9 @@ class CustomLikeButton extends StatelessWidget {
   final ParsedSongEntity song;
   final ParsedAlbumEntity album;
   final Future<void> Function(SaveSongUseCaseParams params) onSave;
+  final SaveSongUseCaseParams onSaveParams;
   final Future<void> Function(DeleteSongUseCaseParams params) onDelete;
+  final DeleteSongUseCaseParams onDeleteParams;
 
   @override
   Widget build(BuildContext context) => LikeButton(
@@ -50,20 +52,9 @@ class CustomLikeButton extends StatelessWidget {
     ),
     onTap: (isLiked) async {
       if(isLiked == false){
-        await onSave(
-          SaveSongUseCaseParams(
-            parsedSongEntity: song, 
-            parsedAlbumEntity: album,
-          ),
-        );
+        await onSave(onSaveParams,);
       } else{
-        await onDelete(
-          DeleteSongUseCaseParams(
-            songName: song.title, 
-            albumName: album.albumName, 
-            artistName: album.artistName,
-          ),
-        );
+        await onDelete(onDeleteParams,);
       }
 
       return !isLiked;
