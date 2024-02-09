@@ -73,12 +73,10 @@ class ArtistInfoBloc extends Bloc<ArtistInfoEvent, ArtistInfoState> {
         songs: [],
       );
       
-      var songIndex = 1;
       for (final song in songs) {
         album.songs.add(ParsedSongEntity(
           title: song.name ?? "Album name wasn't provided",
           durationMs: song.durationMs ?? 0,
-          index: songIndex++,
         ));
       }
 
