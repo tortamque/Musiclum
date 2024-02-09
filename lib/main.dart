@@ -8,8 +8,9 @@ import 'package:musiclum/features/artist_info/presentation/pages/artist_info_scr
 import 'package:musiclum/features/main_screen/presentation/bloc/search_artists_bloc.dart';
 import 'package:musiclum/features/main_screen/presentation/pages/main_page.dart';
 
-void main() {
-  initializeDependencies();
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await initializeDependencies();
   runApp(const MainApp());
 }
 
