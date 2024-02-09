@@ -36,7 +36,7 @@ class _FavScreenState extends State<FavScreen> {
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
       child: sortedArtists == null
         ? _bodyEmpty()
-        : _bodySuccessful()
+        : _bodySuccessful(),
     ),
   );
 
@@ -86,7 +86,7 @@ class _Index extends StatelessWidget {
     '${index + 1}) ',
     style: const TextStyle(
       fontSize: 18,
-    )
+    ),
   );
 }
 
@@ -113,7 +113,7 @@ class _SongInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Text(
-    "${title} | ${durationMs ~/ 60000}:${(durationMs % 60000 ~/ 1000).toString().padLeft(2, '0')}",
+    "$title | ${durationMs ~/ 60000}:${(durationMs % 60000 ~/ 1000).toString().padLeft(2, '0')}",
     style: const TextStyle(
       fontSize: 18,
     ),
@@ -167,9 +167,9 @@ class _SongCard extends StatelessWidget {
               songs: artist.songs.map((e) => ParsedSongEntity(title: song.title, durationMs: song.durationMs)).toList(), 
               albumName: song.albumName, 
               artistName: artist.name, 
-              artistAvatar: artist.imageUrl
+              artistAvatar: artist.imageUrl,
             ), 
-          )
+          ),
         ],
       ),
     ),
@@ -201,7 +201,7 @@ class _ArtistInfo extends StatelessWidget {
             fontSize: 22,
           ),
         ),
-      )
+      ),
     ],
   );
 }

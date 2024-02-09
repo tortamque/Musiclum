@@ -56,7 +56,7 @@ class ArtistInfoScreen extends StatelessWidget {
             'Loading... This may take a while 🥱',
             style: TextStyle(
               fontSize: 20,
-            )
+            ),
           ),
         ),
       ],
@@ -186,7 +186,7 @@ class _SongList extends StatelessWidget {
                     '${index + 1}) ${song.title} | ${song.durationMs ~/ 60000}:${(song.durationMs % 60000 ~/ 1000).toString().padLeft(2, '0')}',
                     style: const TextStyle(
                       fontSize: 18,
-                    )
+                    ),
                   ),
                 ],
               ),

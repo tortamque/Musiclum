@@ -40,7 +40,7 @@ class DBRepositoryImpl implements DBRepository{
           albumCoverUrl: album.albumCoverUrl,
           title: song.title,
           durationMs: song.durationMs,
-        )).toList();
+        ),).toList();
 
         artistMap[album.artistName]!.songs.addAll(newSongs);
       }

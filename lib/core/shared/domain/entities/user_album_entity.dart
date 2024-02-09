@@ -1,22 +1,6 @@
 import 'package:equatable/equatable.dart';
 
 class UserAlbumEntity extends Equatable {
-  final String? albumType;
-  final int? totalTracks;
-  final List<String>? availableMarkets;
-  final AlbumExternalUrlsEntity? externalUrls;
-  final String? href;
-  final String? id;
-  final List<AlbumImageEntity>? images;
-  final String? name;
-  final String? releaseDate;
-  final String? releaseDatePrecision;
-  final AlbumRestrictionsEntity? restrictions;
-  final String? type;
-  final String? uri;
-  final List<AlbumArtistEntity>? artists;
-  final String? albumGroup;
-
   const UserAlbumEntity({
     this.albumType,
     this.totalTracks,
@@ -34,6 +18,22 @@ class UserAlbumEntity extends Equatable {
     this.artists,
     this.albumGroup,
   });
+  
+  final String? albumType;
+  final int? totalTracks;
+  final List<String>? availableMarkets;
+  final AlbumExternalUrlsEntity? externalUrls;
+  final String? href;
+  final String? id;
+  final List<AlbumImageEntity>? images;
+  final String? name;
+  final String? releaseDate;
+  final String? releaseDatePrecision;
+  final AlbumRestrictionsEntity? restrictions;
+  final String? type;
+  final String? uri;
+  final List<AlbumArtistEntity>? artists;
+  final String? albumGroup;
 
   @override
   List<Object?> get props => [
@@ -56,29 +56,29 @@ class UserAlbumEntity extends Equatable {
 }
 
 class AlbumExternalUrlsEntity extends Equatable {
-  final String? spotify;
-
   const AlbumExternalUrlsEntity({this.spotify});
+
+  final String? spotify;
 
   @override
   List<Object?> get props => [spotify];
 }
 
 class AlbumImageEntity extends Equatable {
+  const AlbumImageEntity({this.url, this.height, this.width});
+
   final String? url;
   final int? height;
   final int? width;
-
-  const AlbumImageEntity({this.url, this.height, this.width});
 
   @override
   List<Object?> get props => [url, height, width];
 }
 
 class AlbumRestrictionsEntity extends Equatable {
-  final String? reason;
-
   const AlbumRestrictionsEntity({this.reason});
+
+  final String? reason;
 
   @override
   List<Object?> get props => [reason];

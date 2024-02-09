@@ -21,7 +21,7 @@ class SearchRepositoryImpl implements SearchRepository{
       final response = await _apiService.searchArtists(
         query: query,
         type: 'artist',
-        authToken: 'Authorization: Bearer $token'
+        authToken: 'Authorization: Bearer $token',
       );
 
       if(response.response.statusCode == HttpStatus.ok){
@@ -32,8 +32,8 @@ class SearchRepositoryImpl implements SearchRepository{
             error: response.response.statusMessage,
             response: response.response,
             type: DioErrorType.badResponse,
-            requestOptions: response.response.requestOptions
-          )
+            requestOptions: response.response.requestOptions,
+          ),
         );
       }
     } on DioError catch(e){
@@ -46,7 +46,7 @@ class SearchRepositoryImpl implements SearchRepository{
     try{
       final response = await _apiService.getArtistAlbums(
         artistId: artistId,
-        authToken: 'Authorization: Bearer $token'
+        authToken: 'Authorization: Bearer $token',
       );
 
       if(response.response.statusCode == HttpStatus.ok){
@@ -57,8 +57,8 @@ class SearchRepositoryImpl implements SearchRepository{
             error: response.response.statusMessage,
             response: response.response,
             type: DioErrorType.badResponse,
-            requestOptions: response.response.requestOptions
-          )
+            requestOptions: response.response.requestOptions,
+          ),
         );
       }
     } on DioError catch(e){
@@ -71,7 +71,7 @@ class SearchRepositoryImpl implements SearchRepository{
     try{
       final response = await _apiService.getAlbumDetails(
         albumId: albumId,
-        authToken: 'Authorization: Bearer $token'
+        authToken: 'Authorization: Bearer $token',
       );
 
       if(response.response.statusCode == HttpStatus.ok){
@@ -82,8 +82,8 @@ class SearchRepositoryImpl implements SearchRepository{
             error: response.response.statusMessage,
             response: response.response,
             type: DioErrorType.badResponse,
-            requestOptions: response.response.requestOptions
-          )
+            requestOptions: response.response.requestOptions,
+          ),
         );
       }
     } on DioError catch(e){
@@ -96,7 +96,7 @@ class SearchRepositoryImpl implements SearchRepository{
     try{
       final response = await _apiService.getAlbumCover(
         albumId: albumId,
-        authToken: 'Authorization: Bearer $token'
+        authToken: 'Authorization: Bearer $token',
       );
 
       if(response.response.statusCode == HttpStatus.ok){
@@ -107,8 +107,8 @@ class SearchRepositoryImpl implements SearchRepository{
             error: response.response.statusMessage,
             response: response.response,
             type: DioErrorType.badResponse,
-            requestOptions: response.response.requestOptions
-          )
+            requestOptions: response.response.requestOptions,
+          ),
         );
       }
     } on DioError catch(e){

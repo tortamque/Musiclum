@@ -1,14 +1,6 @@
 import 'package:equatable/equatable.dart';
 
 class AlbumEntity extends Equatable {
-  final String? href;
-  final List<AlbumTrackEntity>? items;
-  final int? limit;
-  final String? next;
-  final int? offset;
-  final String? previous;
-  final int? total;
-
   const AlbumEntity({
     this.href,
     this.items,
@@ -19,29 +11,19 @@ class AlbumEntity extends Equatable {
     this.total,
   });
 
+  final String? href;
+  final List<AlbumTrackEntity>? items;
+  final int? limit;
+  final String? next;
+  final int? offset;
+  final String? previous;
+  final int? total;
+
   @override
   List<Object?> get props => [href, items, limit, next, offset, previous, total];
 }
 
 class AlbumTrackEntity extends Equatable {
-  final List<AlbumArtistEntity>? artists;
-  final List<String>? availableMarkets;
-  final int? discNumber;
-  final int? durationMs;
-  final bool? explicit;
-  final AlbumExternalUrlsEntity? externalUrls;
-  final String? href;
-  final String? id;
-  final bool? isPlayable;
-  final AlbumLinkedFromEntity? linkedFrom;
-  final AlbumRestrictionsEntity? restrictions;
-  final String? name;
-  final String? previewUrl;
-  final int? trackNumber;
-  final String? type;
-  final String? uri;
-  final bool? isLocal;
-
   const AlbumTrackEntity({
     this.artists,
     this.availableMarkets,
@@ -61,6 +43,24 @@ class AlbumTrackEntity extends Equatable {
     this.uri,
     this.isLocal,
   });
+
+  final List<AlbumArtistEntity>? artists;
+  final List<String>? availableMarkets;
+  final int? discNumber;
+  final int? durationMs;
+  final bool? explicit;
+  final AlbumExternalUrlsEntity? externalUrls;
+  final String? href;
+  final String? id;
+  final bool? isPlayable;
+  final AlbumLinkedFromEntity? linkedFrom;
+  final AlbumRestrictionsEntity? restrictions;
+  final String? name;
+  final String? previewUrl;
+  final int? trackNumber;
+  final String? type;
+  final String? uri;
+  final bool? isLocal;
 
   @override
   List<Object?> get props => [
@@ -85,13 +85,6 @@ class AlbumTrackEntity extends Equatable {
 }
 
 class AlbumArtistEntity extends Equatable {
-  final String? id;
-  final String? name;
-  final String? href;
-  final String? type;
-  final String? uri;
-  final AlbumExternalUrlsEntity? externalUrls;
-
   const AlbumArtistEntity({
     this.id,
     this.name,
@@ -101,25 +94,27 @@ class AlbumArtistEntity extends Equatable {
     this.externalUrls,
   });
 
+  final String? id;
+  final String? name;
+  final String? href;
+  final String? type;
+  final String? uri;
+  final AlbumExternalUrlsEntity? externalUrls;
+
   @override
   List<Object?> get props => [id, name, href, type, uri, externalUrls];
 }
 
 class AlbumExternalUrlsEntity extends Equatable {
-  final String? spotify;
-
   const AlbumExternalUrlsEntity({this.spotify});
+
+  final String? spotify;
 
   @override
   List<Object?> get props => [spotify];
 }
 
 class AlbumLinkedFromEntity extends Equatable {
-  final String? id;
-  final String? uri;
-  final String? href;
-  final String? type;
-
   const AlbumLinkedFromEntity({
     this.id,
     this.uri,
@@ -127,14 +122,19 @@ class AlbumLinkedFromEntity extends Equatable {
     this.type,
   });
 
+  final String? id;
+  final String? uri;
+  final String? href;
+  final String? type;
+
   @override
   List<Object?> get props => [id, uri, href, type];
 }
 
 class AlbumRestrictionsEntity extends Equatable {
-  final String? reason;
-
   const AlbumRestrictionsEntity({this.reason});
+
+  final String? reason;
 
   @override
   List<Object?> get props => [reason];

@@ -22,7 +22,7 @@ class ArtistPreviewCard extends StatelessWidget {
         artistId: artistEntity.id!,
         artistName: artistEntity.name ?? 'No name was provided',
         artistAvatar: artistEntity.images?[0].url ?? defaultAvatarUrl,
-      ));
+      ),);
       Navigator.pushNamed(context, artistInfoScreen, arguments: artistEntity);
     },
     child: Card(

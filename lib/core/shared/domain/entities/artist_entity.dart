@@ -50,25 +50,25 @@ class ExternalUrlsEntity extends Equatable{
 }
 
 class FollowersEntity extends Equatable {
+  const FollowersEntity({this.href, this.total});
+
   final String? href;
   final int? total;
-
-  const FollowersEntity({this.href, this.total});
       
   @override
   List<Object?> get props => [href, total];
 }
 
 class ImageEntity extends Equatable{
-  final String? url;
-  final int? height;
-  final int? width;
-
   const ImageEntity({
     this.url,
     this.height,
     this.width,
   });
+
+  final String? url;
+  final int? height;
+  final int? width;
       
   @override
   List<Object?> get props => [url, height, width];

@@ -87,11 +87,9 @@ class AlbumArtistModel extends AlbumArtistEntity {
 class AlbumExternalUrlsModel extends AlbumExternalUrlsEntity {
   const AlbumExternalUrlsModel({super.spotify});
 
-  factory AlbumExternalUrlsModel.fromJson(Map<String, dynamic> json) {
-    return AlbumExternalUrlsModel(
+  factory AlbumExternalUrlsModel.fromJson(Map<String, dynamic> json) => AlbumExternalUrlsModel(
       spotify: json['spotify'],
     );
-  }
 }
 
 class AlbumLinkedFromModel extends AlbumLinkedFromEntity {
@@ -102,22 +100,18 @@ class AlbumLinkedFromModel extends AlbumLinkedFromEntity {
     super.type,
   });
 
-  factory AlbumLinkedFromModel.fromJson(Map<String, dynamic> json) {
-    return AlbumLinkedFromModel(
+  factory AlbumLinkedFromModel.fromJson(Map<String, dynamic> json) => AlbumLinkedFromModel(
       id: json['id'],
       uri: json['uri'],
       href: json['href'],
       type: json['type'],
     );
-  }
 }
 
 class AlbumRestrictionsModel extends AlbumRestrictionsEntity {
   const AlbumRestrictionsModel({super.reason});
 
-  factory AlbumRestrictionsModel.fromJson(Map<String, dynamic> json) {
-    return AlbumRestrictionsModel(
+  factory AlbumRestrictionsModel.fromJson(Map<String, dynamic> json) => AlbumRestrictionsModel(
       reason: json['reason'],
     );
-  }
 }

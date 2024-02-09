@@ -5,9 +5,9 @@ import 'package:musiclum/core/constants/ui_constants.dart';
 import 'package:musiclum/core/resources/data_state.dart';
 import 'package:musiclum/core/shared/domain/entities/album_cover_entity.dart';
 import 'package:musiclum/core/shared/domain/entities/album_entity.dart';
-import 'package:musiclum/core/shared/domain/entities/user_album_entity.dart';
 import 'package:musiclum/core/shared/domain/entities/hive/parsed_album_entity.dart';
 import 'package:musiclum/core/shared/domain/entities/hive/parsed_song_entity.dart';
+import 'package:musiclum/core/shared/domain/entities/user_album_entity.dart';
 import 'package:musiclum/features/artist_info/domain/usecases/get_album_cover_usecase.dart';
 import 'package:musiclum/features/artist_info/domain/usecases/get_album_details_usecase.dart';
 import 'package:musiclum/features/artist_info/domain/usecases/get_albums_usecase.dart';
@@ -77,7 +77,7 @@ class ArtistInfoBloc extends Bloc<ArtistInfoEvent, ArtistInfoState> {
         album.songs.add(ParsedSongEntity(
           title: song.name ?? "Album name wasn't provided",
           durationMs: song.durationMs ?? 0,
-        ));
+        ),);
       }
 
       albums.add(album);
