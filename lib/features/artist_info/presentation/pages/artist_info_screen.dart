@@ -4,10 +4,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:like_button/like_button.dart';
 import 'package:musiclum/core/constants/ui_constants.dart';
 import 'package:musiclum/core/service_locator.dart';
-import 'package:musiclum/core/shared/data/data_sources/local/database_service.dart';
 import 'package:musiclum/core/shared/domain/entities/artist_entity.dart';
 import 'package:musiclum/core/shared/domain/entities/hive/parsed_album_entity.dart';
 import 'package:musiclum/core/shared/domain/entities/hive/parsed_song_entity.dart';
+import 'package:musiclum/core/shared/domain/usecases/delete_song_usecase.dart';
 import 'package:musiclum/core/shared/domain/usecases/save_song_usecase.dart';
 import 'package:musiclum/core/shared/presentation/widgets/custom_app_bar.dart';
 import 'package:musiclum/core/shared/presentation/widgets/custom_network_image.dart';
@@ -200,7 +200,13 @@ class _SongList extends StatelessWidget {
                           ),
                         );
                       } else{
-                        await getIt<DatabaseService>().deleteSong(songName: song.title, albumName: album.albumName, artistName: album.artistName);
+                        await getIt<DeleteSongUseCase>()(
+                          DeleteSongUseCaseParams(
+                            songName: song.title, 
+                            albumName: album.albumName, 
+                            artistName: album.artistName,
+                          ),
+                        );
                       }
 
                       return !isLiked;
