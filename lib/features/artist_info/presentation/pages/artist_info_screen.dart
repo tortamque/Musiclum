@@ -172,6 +172,15 @@ class _SongList extends StatelessWidget {
                     album: album, 
                     onDelete: getIt<DeleteSongUseCase>(),
                     onSave: getIt<SaveSongUseCase>(),
+                    onSaveParams: SaveSongUseCaseParams(
+                      parsedSongEntity: song, 
+                      parsedAlbumEntity: album,
+                    ),
+                    onDeleteParams: DeleteSongUseCaseParams(
+                      songName: song.title, 
+                      albumName: album.albumName, 
+                      artistName: album.artistName,
+                    ),
                   ),
                   Text(
                     '${index + 1}) ${song.title} | ${song.durationMs ~/ 60000}:${(song.durationMs % 60000 ~/ 1000).toString().padLeft(2, '0')}',
