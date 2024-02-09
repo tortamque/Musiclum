@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:musiclum/features/artist_info/domain/entities/parsed_song_entity.dart';
+import 'package:musiclum/core/shared/domain/entities/hive/parsed_song_entity.dart';
 
 class ParsedAlbumEntity extends Equatable{
   const ParsedAlbumEntity({required this.albumCoverUrl, required this.songs, required this.albumName, required this.artistName, required this.artistAvatar});

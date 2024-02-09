@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:musiclum/features/artist_info/domain/entities/parsed_album_entity.dart';
+import 'package:musiclum/core/shared/domain/entities/hive/parsed_album_entity.dart';
 
 sealed class ArtistInfoState {
   const ArtistInfoState({this.albums, this.error});

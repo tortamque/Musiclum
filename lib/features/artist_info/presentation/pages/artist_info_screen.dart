@@ -5,7 +5,7 @@ import 'package:musiclum/core/constants/ui_constants.dart';
 import 'package:musiclum/core/shared/domain/entities/artist_entity.dart';
 import 'package:musiclum/core/shared/presentation/widgets/custom_app_bar.dart';
 import 'package:musiclum/core/shared/presentation/widgets/custom_network_image.dart';
-import 'package:musiclum/features/artist_info/domain/entities/parsed_song_entity.dart';
+import 'package:musiclum/core/shared/domain/entities/hive/parsed_song_entity.dart';
 import 'package:musiclum/features/artist_info/presentation/bloc/artist_info_bloc.dart';
 import 'package:musiclum/features/artist_info/presentation/bloc/artist_info_state.dart';
 
