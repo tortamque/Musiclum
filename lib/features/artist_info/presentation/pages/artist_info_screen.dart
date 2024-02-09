@@ -152,29 +152,32 @@ class _SongList extends StatelessWidget {
       children: songs.map(
         (song) => Padding(
           padding: const EdgeInsets.symmetric(vertical: 2.5),
-          child: Row(
-            children: [
-              Text(
-                '${song.index}) ${song.title} | ${song.durationMs ~/ 60000}:${(song.durationMs % 60000 ~/ 1000).toString().padLeft(2, '0')}',
-                style: const TextStyle(
-                  fontSize: 18,
-                )
-              ),
-              LikeButton(
-                circleColor: CircleColor(
-                  start: Theme.of(context).colorScheme.primary,
-                  end: Theme.of(context).colorScheme.onPrimary,
+          child: SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              children: [
+                Text(
+                  '${song.index}) ${song.title} | ${song.durationMs ~/ 60000}:${(song.durationMs % 60000 ~/ 1000).toString().padLeft(2, '0')}',
+                  style: const TextStyle(
+                    fontSize: 18,
+                  )
                 ),
-                bubblesColor: BubblesColor(
-                  dotPrimaryColor: Theme.of(context).colorScheme.primary,
-                  dotSecondaryColor: Theme.of(context).colorScheme.onPrimary,
+                LikeButton(
+                  circleColor: CircleColor(
+                    start: Theme.of(context).colorScheme.primary,
+                    end: Theme.of(context).colorScheme.onPrimary,
+                  ),
+                  bubblesColor: BubblesColor(
+                    dotPrimaryColor: Theme.of(context).colorScheme.primary,
+                    dotSecondaryColor: Theme.of(context).colorScheme.onPrimary,
+                  ),
+                  likeBuilder: (isLiked) => Icon(
+                    Icons.bookmark_outlined,
+                    color: isLiked ? Theme.of(context).colorScheme.primary : Colors.grey,
+                  ),
                 ),
-                likeBuilder: (isLiked) => Icon(
-                  Icons.bookmark_outlined,
-                  color: isLiked ? Theme.of(context).colorScheme.primary : Colors.grey,
-                ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ).toList(),
