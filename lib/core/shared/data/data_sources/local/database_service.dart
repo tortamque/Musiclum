@@ -7,6 +7,7 @@ abstract class DatabaseService{
   List<ParsedAlbumEntity>? getAllAlbums();
   bool isSongAlreadySaved({required String songName, required String albumName, required String artistName});
   Future<void> saveSong({required ParsedSongEntity parsedSongEntity, required ParsedAlbumEntity parsedAlbumEntity});
+  Future<void> deleteSong({required String songName, required String albumName, required String artistName});
 }
 
 class DatabaseServiceImpl implements DatabaseService{
@@ -61,5 +62,25 @@ class DatabaseServiceImpl implements DatabaseService{
     }
 
     return false;
+  }
+
+  @override
+  Future<void> deleteSong({required String songName, required String albumName, required String artistName}) async {
+    var albums = getAllAlbums() ?? [];
+
+    for (var album in albums) {
+      if (album.albumName == albumName && album.artistName == artistName) {
+        for (var song in album.songs) {
+          if (song.title == songName) {
+            album.songs.remove(song);
+            if (album.songs.isEmpty) {
+              albums.remove(album);
+            }
+            await _box.put(songsKey, [...albums]);
+            return;
+          }
+        }
+      }
+    }
   }
 }
