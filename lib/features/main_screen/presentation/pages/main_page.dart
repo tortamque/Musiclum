@@ -39,10 +39,10 @@ class MainPage extends StatelessWidget {
           final artistIndex = index - 1;
           
           return ArtistPreviewCard(
-            photoUrl: state.artists![artistIndex].images.isNotEmpty
-              ? state.artists![artistIndex].images[0].url
+            photoUrl: state.artists![artistIndex].images!.isNotEmpty
+              ? state.artists![artistIndex].images![0].url ?? defaultAvatarUrl
               : defaultAvatarUrl,
-            artistName: state.artists![artistIndex].name,
+            artistName: state.artists![artistIndex].name ?? 'No name found',
             imageSize: 75,
             artistEntity: state.artists![artistIndex],
           );

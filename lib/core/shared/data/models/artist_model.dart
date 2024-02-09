@@ -2,16 +2,16 @@ import 'package:musiclum/core/shared/domain/entities/artist_entity.dart';
 
 class ArtistModel extends ArtistEntity{
   const ArtistModel({
-    required super.externalUrls, 
-    required super.followers, 
-    required super.genres, 
-    required super.href, 
-    required super.id, 
-    required super.images, 
-    required super.name, 
-    required super.popularity, 
-    required super.type, 
-    required super.uri,
+    super.externalUrls, 
+    super.followers, 
+    super.genres, 
+    super.href, 
+    super.id, 
+    super.images, 
+    super.name, 
+    super.popularity, 
+    super.type, 
+    super.uri,
   });
 
   factory ArtistModel.fromJson(Map<String, dynamic> json) => ArtistModel(
@@ -29,7 +29,7 @@ class ArtistModel extends ArtistEntity{
 }
 
 class ExternalUrlsModel extends ExternalUrlsEntity {
-  const ExternalUrlsModel({required String spotify}) : super(spotify: spotify);
+  const ExternalUrlsModel({super.spotify});
 
   factory ExternalUrlsModel.fromJson(Map<String, dynamic> json) => ExternalUrlsModel(
       spotify: json['spotify'],
@@ -37,7 +37,7 @@ class ExternalUrlsModel extends ExternalUrlsEntity {
 }
 
 class FollowersModel extends FollowersEntity {
-  const FollowersModel({String? href, required int total}) : super(href: href, total: total);
+  const FollowersModel({super.href, super.total});
 
   factory FollowersModel.fromJson(Map<String, dynamic> json) => FollowersModel(
       href: json['href'],
@@ -47,10 +47,10 @@ class FollowersModel extends FollowersEntity {
 
 class ImageModel extends ImageEntity {
   const ImageModel({
-    required String url,
-    required int height,
-    required int width,
-  }) : super(url: url, height: height, width: width);
+    super.url,
+    super.height,
+    super.width,
+  });
 
   factory ImageModel.fromJson(Map<String, dynamic> json) => ImageModel(
       url: json['url'],
@@ -58,4 +58,3 @@ class ImageModel extends ImageEntity {
       width: json['width'],
     );
 }
-

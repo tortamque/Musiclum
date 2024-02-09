@@ -11,7 +11,7 @@ class ArtistInfoScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: const CustomAppBar(title: 'Artist Info'),
-      body: Text(artistEntity.name),
+      body: Text(artistEntity.name ?? 'No name found'),
     );
   }
 }
