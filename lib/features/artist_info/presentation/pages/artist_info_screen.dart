@@ -1,13 +1,18 @@
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:like_button/like_button.dart';
 import 'package:musiclum/core/constants/ui_constants.dart';
+import 'package:musiclum/core/service_locator.dart';
 import 'package:musiclum/core/shared/domain/entities/artist_entity.dart';
+import 'package:musiclum/core/shared/domain/entities/hive/parsed_album_entity.dart';
+import 'package:musiclum/core/shared/domain/entities/hive/parsed_song_entity.dart';
+import 'package:musiclum/core/shared/domain/usecases/delete_song_usecase.dart';
+import 'package:musiclum/core/shared/domain/usecases/save_song_usecase.dart';
 import 'package:musiclum/core/shared/presentation/widgets/custom_app_bar.dart';
 import 'package:musiclum/core/shared/presentation/widgets/custom_network_image.dart';
-import 'package:musiclum/features/artist_info/domain/entities/parsed_song_entity.dart';
-import 'package:musiclum/features/artist_info/presentation/bloc/artist_info_bloc.dart';
-import 'package:musiclum/features/artist_info/presentation/bloc/artist_info_state.dart';
+import 'package:musiclum/core/shared/presentation/widgets/like_button.dart';
+import 'package:musiclum/features/artist_info/presentation/bloc/artist_info/artist_info_bloc.dart';
+import 'package:musiclum/features/artist_info/presentation/bloc/artist_info/artist_info_state.dart';
 
 class ArtistInfoScreen extends StatelessWidget {
   const ArtistInfoScreen({super.key});
@@ -51,7 +56,7 @@ class ArtistInfoScreen extends StatelessWidget {
             'Loading... This may take a while 🥱',
             style: TextStyle(
               fontSize: 20,
-            )
+            ),
           ),
         ),
       ],
@@ -80,7 +85,7 @@ class ArtistInfoScreen extends StatelessWidget {
                   name: artistEntity.name ?? 'Anonymous Artist',
                 ),
                 const _Divider(),
-                _SongList(songs: album.songs),
+                _SongList(songs: album.songs, album: album),
               ],
             ),
           ),
@@ -97,7 +102,7 @@ class _AlbumCover extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => ClipRRect(
-    borderRadius: BorderRadius.circular(20),
+    borderRadius: BorderRadius.circular(30),
     child: CustomNetworkImage(
       photoUrl: albumCoverUrl,
       imageSize: 250,
@@ -142,46 +147,51 @@ class _ArtistInfo extends StatelessWidget {
 }
 
 class _SongList extends StatelessWidget {
-  const _SongList({required this.songs});
+  const _SongList({required this.songs, required this.album});
 
   final List<ParsedSongEntity> songs;
+  final ParsedAlbumEntity album;
 
   @override
   Widget build(BuildContext context) => Padding(
     padding: const EdgeInsets.symmetric(horizontal: 20),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: songs.map(
-        (song) => Padding(
-          padding: const EdgeInsets.symmetric(vertical: 2.5),
-          child: SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Row(
-              children: [
-                Text(
-                  '${song.index}) ${song.title} | ${song.durationMs ~/ 60000}:${(song.durationMs % 60000 ~/ 1000).toString().padLeft(2, '0')}',
-                  style: const TextStyle(
-                    fontSize: 18,
-                  )
-                ),
-                LikeButton(
-                  circleColor: CircleColor(
-                    start: Theme.of(context).colorScheme.primary,
-                    end: Theme.of(context).colorScheme.onPrimary,
+      children: songs.mapIndexed(
+        (index, song)=> Padding(
+            padding: const EdgeInsets.symmetric(vertical: 2.5),
+            child: SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: [
+                  CustomLikeButton(
+                    songName: song.title, 
+                    albumName: album.albumName, 
+                    artistName: album.artistName, 
+                    song: song, 
+                    album: album, 
+                    onDelete: getIt<DeleteSongUseCase>(),
+                    onSave: getIt<SaveSongUseCase>(),
+                    onSaveParams: SaveSongUseCaseParams(
+                      parsedSongEntity: song, 
+                      parsedAlbumEntity: album,
+                    ),
+                    onDeleteParams: DeleteSongUseCaseParams(
+                      songName: song.title, 
+                      albumName: album.albumName, 
+                      artistName: album.artistName,
+                    ),
                   ),
-                  bubblesColor: BubblesColor(
-                    dotPrimaryColor: Theme.of(context).colorScheme.primary,
-                    dotSecondaryColor: Theme.of(context).colorScheme.onPrimary,
+                  Text(
+                    '${index + 1}) ${song.title} | ${song.durationMs ~/ 60000}:${(song.durationMs % 60000 ~/ 1000).toString().padLeft(2, '0')}',
+                    style: const TextStyle(
+                      fontSize: 18,
+                    ),
                   ),
-                  likeBuilder: (isLiked) => Icon(
-                    Icons.bookmark_outlined,
-                    color: isLiked ? Theme.of(context).colorScheme.primary : Colors.grey,
-                  ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
-        ),
       ).toList(),
     ),
   );

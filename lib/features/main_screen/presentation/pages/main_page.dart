@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:musiclum/core/constants/navigator_constants.dart';
 import 'package:musiclum/core/constants/ui_constants.dart';
 import 'package:musiclum/core/shared/presentation/widgets/custom_app_bar.dart';
 import 'package:musiclum/features/main_screen/presentation/bloc/search_artists_bloc.dart';
@@ -11,6 +12,23 @@ class MainPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Scaffold(
     appBar: const CustomAppBar(title: 'Home'),
+    bottomNavigationBar: BottomNavigationBar(
+      onTap: (index){
+        if(index == 1){
+          Navigator.pushNamed(context, favouritesScreen);
+        }
+      },
+      items: const [
+        BottomNavigationBarItem(
+          icon: Icon(Icons.home),
+          label: 'Home',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.bookmark_rounded),
+          label: 'Favorites',
+        ),
+      ],
+    ),
     body: BlocBuilder<SearchArtistsBloc, SearchState>(
       builder: (context, state) {
         if(state is SearchArtistsLoading){

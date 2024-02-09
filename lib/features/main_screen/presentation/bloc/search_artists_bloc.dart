@@ -29,7 +29,7 @@ class SearchArtistsBloc extends Bloc<SearchEvent, SearchState> {
     if(dataState is DataFailed){
       emit(
         SearchArtistsError(
-          dataState.error!
+          dataState.error!,
         ),
       );
     }

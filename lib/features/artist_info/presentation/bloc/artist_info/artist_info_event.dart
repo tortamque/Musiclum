@@ -8,7 +8,9 @@ sealed class ArtistInfoEvent extends Equatable {
 }
 
 final class GetArtistInfoEvent extends ArtistInfoEvent{
-  const GetArtistInfoEvent({required this.artistId});
+  const GetArtistInfoEvent({required this.artistName, required this.artistAvatar, required this.artistId});
 
   final String artistId;
+  final String artistName;
+  final String artistAvatar;
 }

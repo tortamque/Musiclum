@@ -5,14 +5,14 @@ import 'package:musiclum/core/constants/ui_constants.dart';
 import 'package:musiclum/core/resources/data_state.dart';
 import 'package:musiclum/core/shared/domain/entities/album_cover_entity.dart';
 import 'package:musiclum/core/shared/domain/entities/album_entity.dart';
+import 'package:musiclum/core/shared/domain/entities/hive/parsed_album_entity.dart';
+import 'package:musiclum/core/shared/domain/entities/hive/parsed_song_entity.dart';
 import 'package:musiclum/core/shared/domain/entities/user_album_entity.dart';
-import 'package:musiclum/features/artist_info/domain/entities/parsed_album_entity.dart';
-import 'package:musiclum/features/artist_info/domain/entities/parsed_song_entity.dart';
 import 'package:musiclum/features/artist_info/domain/usecases/get_album_cover_usecase.dart';
 import 'package:musiclum/features/artist_info/domain/usecases/get_album_details_usecase.dart';
 import 'package:musiclum/features/artist_info/domain/usecases/get_albums_usecase.dart';
-import 'package:musiclum/features/artist_info/presentation/bloc/artist_info_event.dart';
-import 'package:musiclum/features/artist_info/presentation/bloc/artist_info_state.dart';
+import 'package:musiclum/features/artist_info/presentation/bloc/artist_info/artist_info_event.dart';
+import 'package:musiclum/features/artist_info/presentation/bloc/artist_info/artist_info_state.dart';
 
 class ArtistInfoBloc extends Bloc<ArtistInfoEvent, ArtistInfoState> {
   ArtistInfoBloc(this._getAlbumsUseCase, this._getAlbumDetailsUseCase, this._getAlbumCoverUseCase) : super(const GetArtistInfoLoading()) {
@@ -66,18 +66,18 @@ class ArtistInfoBloc extends Bloc<ArtistInfoEvent, ArtistInfoState> {
 
       
       final album = ParsedAlbumEntity(
+        artistAvatar: event.artistAvatar,
+        artistName: event.artistName,
         albumCoverUrl: albumCovers[0].url,
         albumName: albumEntity.name ?? "Can't find album name",
         songs: [],
       );
       
-      var songIndex = 1;
       for (final song in songs) {
         album.songs.add(ParsedSongEntity(
           title: song.name ?? "Album name wasn't provided",
           durationMs: song.durationMs ?? 0,
-          index: songIndex++,
-        ));
+        ),);
       }
 
       albums.add(album);
