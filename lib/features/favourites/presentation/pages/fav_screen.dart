@@ -30,7 +30,7 @@ class _FavScreenState extends State<FavScreen> {
   @override
   Widget build(BuildContext context) => Scaffold(
     appBar: const CustomAppBar(
-      title: 'Favorites',
+      title: 'Favourites',
     ),
     body: Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
@@ -42,7 +42,7 @@ class _FavScreenState extends State<FavScreen> {
 
   Widget _bodyEmpty() => const Center(
     child: Text(
-      'You have no favorites yet 😇',
+      'You have no favourites yet 😇',
       style: TextStyle(
         fontSize: 20,
       ),

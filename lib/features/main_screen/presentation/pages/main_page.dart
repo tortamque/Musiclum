@@ -25,7 +25,7 @@ class MainPage extends StatelessWidget {
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.bookmark_rounded),
-          label: 'Favorites',
+          label: 'Favourites',
         ),
       ],
     ),
