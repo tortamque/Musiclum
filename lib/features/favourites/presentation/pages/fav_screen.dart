@@ -34,9 +34,11 @@ class _FavScreenState extends State<FavScreen> {
     ),
     body: Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-      child: sortedArtists == null || sortedArtists!.isEmpty
+      child: sortedArtists == null
         ? _bodyEmpty()
-        : _bodySuccessful(),
+        : sortedArtists!.isEmpty
+          ? _bodyEmpty()
+          : _bodySuccessful(),
     ),
   );
 
