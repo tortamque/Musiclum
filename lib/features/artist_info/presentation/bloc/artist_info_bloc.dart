@@ -66,6 +66,8 @@ class ArtistInfoBloc extends Bloc<ArtistInfoEvent, ArtistInfoState> {
 
       
       final album = ParsedAlbumEntity(
+        artistAvatar: event.artistAvatar,
+        artistName: event.artistName,
         albumCoverUrl: albumCovers[0].url,
         albumName: albumEntity.name ?? "Can't find album name",
         songs: [],
