@@ -2,21 +2,21 @@ import 'package:musiclum/core/shared/domain/entities/user_album_entity.dart';
 
 class UserAlbumModel extends UserAlbumEntity {
   const UserAlbumModel({
-    required super.albumType,
-    required super.totalTracks,
-    required super.availableMarkets,
-    required super.externalUrls,
-    required super.href,
-    required super.id,
-    required super.images,
-    required super.name,
-    required super.releaseDate,
-    required super.releaseDatePrecision,
+    super.albumType,
+    super.totalTracks,
+    super.availableMarkets,
+    super.externalUrls,
+    super.href,
+    super.id,
+    super.images,
+    super.name,
+    super.releaseDate,
+    super.releaseDatePrecision,
     super.restrictions,
-    required super.type,
-    required super.uri,
-    required super.artists,
-    required super.albumGroup,
+    super.type,
+    super.uri,
+    super.artists,
+    super.albumGroup,
   });
 
   factory UserAlbumModel.fromJson(Map<String, dynamic> json) => UserAlbumModel(
@@ -39,7 +39,7 @@ class UserAlbumModel extends UserAlbumEntity {
 }
 
 class AlbumArtistModel extends AlbumArtistEntity{
-  const AlbumArtistModel({required super.externalUrls, required super.href, required super.id, required super.name, required super.type, required super.uri});
+  const AlbumArtistModel({super.externalUrls, super.href, super.id, super.name, super.type, super.uri});
 
   factory AlbumArtistModel.fromJson(Map<String, dynamic> json) => AlbumArtistModel(
       externalUrls: AlbumExternalUrlsModel.fromJson(json['external_urls']),
@@ -52,7 +52,7 @@ class AlbumArtistModel extends AlbumArtistEntity{
 }
 
 class AlbumExternalUrlsModel extends AlbumExternalUrlsEntity {
-  const AlbumExternalUrlsModel({required super.spotify});
+  const AlbumExternalUrlsModel({super.spotify});
 
   factory AlbumExternalUrlsModel.fromJson(Map<String, dynamic> json) => AlbumExternalUrlsModel(
       spotify: json['spotify'] as String,
@@ -60,7 +60,7 @@ class AlbumExternalUrlsModel extends AlbumExternalUrlsEntity {
 }
 
 class AlbumImageModel extends AlbumImageEntity {
-  const AlbumImageModel({required super.url, required super.height, required super.width});
+  const AlbumImageModel({super.url, super.height, super.width});
 
   factory AlbumImageModel.fromJson(Map<String, dynamic> json) => AlbumImageModel(
       url: json['url'] as String,
@@ -70,7 +70,7 @@ class AlbumImageModel extends AlbumImageEntity {
 }
 
 class AlbumRestrictionsModel extends AlbumRestrictionsEntity {
-  const AlbumRestrictionsModel({required String reason}) : super(reason: reason);
+  const AlbumRestrictionsModel({super.reason});
 
   factory AlbumRestrictionsModel.fromJson(Map<String, dynamic> json) => AlbumRestrictionsModel(
       reason: json['reason'] as String,
