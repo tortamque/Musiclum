@@ -76,57 +76,60 @@ class _FavScreenState extends State<FavScreen> {
 
                       Column(
                         children: artist.songs.mapIndexed(
-                          (index, song) => Row(
-                            children: [
-                              Text('$index + 1) '),
-                              ClipRRect(
-                                borderRadius: BorderRadius.circular(10),
-                                child: CustomNetworkImage(
-                                  photoUrl: song.albumCoverUrl,
-                                  imageSize: 70,
-                                ),
-                              ),
-                              Text("${song.title} | ${song.durationMs ~/ 60000}:${(song.durationMs % 60000 ~/ 1000).toString().padLeft(2, '0')}"),
-                              LikeButton(
-                                isLiked: getIt<IsSongSavedUseCase>()(
-                                  IsSongSavedParams(
-                                    songName: song.title,
-                                    albumName: artist.songs[index].albumName,
-                                    artistName: artist.name,
+                          (index, song) => SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            child: Row(
+                              children: [
+                                Text('$index + 1) '),
+                                ClipRRect(
+                                  borderRadius: BorderRadius.circular(10),
+                                  child: CustomNetworkImage(
+                                    photoUrl: song.albumCoverUrl,
+                                    imageSize: 70,
                                   ),
                                 ),
-                                circleColor: CircleColor(
-                                  start: Theme.of(context).colorScheme.primary,
-                                  end: Theme.of(context).colorScheme.onPrimary,
+                                Text("${song.title} | ${song.durationMs ~/ 60000}:${(song.durationMs % 60000 ~/ 1000).toString().padLeft(2, '0')}"),
+                                LikeButton(
+                                  isLiked: getIt<IsSongSavedUseCase>()(
+                                    IsSongSavedParams(
+                                      songName: song.title,
+                                      albumName: artist.songs[index].albumName,
+                                      artistName: artist.name,
+                                    ),
+                                  ),
+                                  circleColor: CircleColor(
+                                    start: Theme.of(context).colorScheme.primary,
+                                    end: Theme.of(context).colorScheme.onPrimary,
+                                  ),
+                                  bubblesColor: BubblesColor(
+                                    dotPrimaryColor: Theme.of(context).colorScheme.primary,
+                                    dotSecondaryColor: Theme.of(context).colorScheme.onPrimary,
+                                  ),
+                                  likeBuilder: (isLiked) => Icon(
+                                    Icons.bookmark_outlined,
+                                    color: isLiked ? Theme.of(context).colorScheme.primary : Colors.grey,
+                                  ),
+                                  onTap: (isLiked) async {
+                                    if(isLiked == false){
+                                      await getIt<DatabaseService>().saveSong(
+                                        parsedSongEntity: ParsedSongEntity(title: song.title, durationMs: song.durationMs), 
+                                        parsedAlbumEntity: ParsedAlbumEntity(
+                                          albumCoverUrl: song.albumCoverUrl, 
+                                          songs: artist.songs.map((e) => ParsedSongEntity(title: song.title, durationMs: song.durationMs)).toList(), 
+                                          albumName: song.albumName, 
+                                          artistName: artist.name, 
+                                          artistAvatar: artist.imageUrl
+                                        )
+                                      );
+                                    } else{
+                                      await getIt<DatabaseService>().deleteSong(songName: song.title, albumName: song.albumName, artistName: artist.name);
+                                    }
+                          
+                                    return !isLiked;
+                                  },
                                 ),
-                                bubblesColor: BubblesColor(
-                                  dotPrimaryColor: Theme.of(context).colorScheme.primary,
-                                  dotSecondaryColor: Theme.of(context).colorScheme.onPrimary,
-                                ),
-                                likeBuilder: (isLiked) => Icon(
-                                  Icons.bookmark_outlined,
-                                  color: isLiked ? Theme.of(context).colorScheme.primary : Colors.grey,
-                                ),
-                                onTap: (isLiked) async {
-                                  if(isLiked == false){
-                                    await getIt<DatabaseService>().saveSong(
-                                      parsedSongEntity: ParsedSongEntity(title: song.title, durationMs: song.durationMs), 
-                                      parsedAlbumEntity: ParsedAlbumEntity(
-                                        albumCoverUrl: song.albumCoverUrl, 
-                                        songs: artist.songs.map((e) => ParsedSongEntity(title: song.title, durationMs: song.durationMs)).toList(), 
-                                        albumName: song.albumName, 
-                                        artistName: artist.name, 
-                                        artistAvatar: artist.imageUrl
-                                      )
-                                    );
-                                  } else{
-                                    await getIt<DatabaseService>().deleteSong(songName: song.title, albumName: song.albumName, artistName: artist.name);
-                                  }
-
-                                  return !isLiked;
-                                },
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ).toList()
                       )
