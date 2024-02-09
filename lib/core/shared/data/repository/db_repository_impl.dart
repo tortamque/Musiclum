@@ -1,4 +1,6 @@
 import 'package:musiclum/core/shared/data/data_sources/local/database_service.dart';
+import 'package:musiclum/core/shared/domain/entities/hive/parsed_album_entity.dart';
+import 'package:musiclum/core/shared/domain/entities/hive/parsed_song_entity.dart';
 import 'package:musiclum/core/shared/domain/repository/db_repository.dart';
 import 'package:musiclum/features/favourites/domain/entities/sorted_artist_entity.dart';
 
@@ -52,4 +54,7 @@ class DBRepositoryImpl implements DBRepository{
     
     return sortedArtists;
   }
+
+  @override
+  Future<void> saveSong({required ParsedSongEntity parsedSongEntity, required ParsedAlbumEntity parsedAlbumEntity}) => _databaseService.saveSong(parsedSongEntity: parsedSongEntity, parsedAlbumEntity: parsedAlbumEntity);
 }
