@@ -194,7 +194,7 @@ class _ArtistInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Row(
-    mainAxisAlignment: MainAxisAlignment.spaceAround,
+    mainAxisAlignment: MainAxisAlignment.center,
     children: [
       ClipOval(
         child: CustomNetworkImage(
