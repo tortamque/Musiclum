@@ -19,20 +19,17 @@ class ParsedSongEntityAdapter extends TypeAdapter<ParsedSongEntity> {
     return ParsedSongEntity(
       title: fields[0] as String,
       durationMs: fields[1] as int,
-      index: fields[2] as int,
     );
   }
 
   @override
   void write(BinaryWriter writer, ParsedSongEntity obj) {
     writer
-      ..writeByte(3)
+      ..writeByte(2)
       ..writeByte(0)
       ..write(obj.title)
       ..writeByte(1)
-      ..write(obj.durationMs)
-      ..writeByte(2)
-      ..write(obj.index);
+      ..write(obj.durationMs);
   }
 
   @override
