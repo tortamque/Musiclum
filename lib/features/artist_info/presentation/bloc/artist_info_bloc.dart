@@ -65,13 +65,14 @@ class ArtistInfoBloc extends Bloc<ArtistInfoEvent, ArtistInfoState> {
       
       final album = ParsedAlbumEntity(
         albumCoverUrl: albumCovers[0].url,
+        albumName: albumEntity.name ?? "Can't find album name",
         songs: [],
       );
       
 
       for (final song in songs) {
         album.songs.add(ParsedSongEntity(
-          title: song.name ?? "Can't find song name",
+          title: song.name ?? "Album name wasn't provided",
           durationMs: song.durationMs ?? 0,
         ));
         print('${song.name} - ${song.durationMs} - ${albumCovers[0].url}');
