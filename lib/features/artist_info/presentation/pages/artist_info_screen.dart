@@ -8,6 +8,7 @@ import 'package:musiclum/core/shared/data/data_sources/local/database_service.da
 import 'package:musiclum/core/shared/domain/entities/artist_entity.dart';
 import 'package:musiclum/core/shared/domain/entities/hive/parsed_album_entity.dart';
 import 'package:musiclum/core/shared/domain/entities/hive/parsed_song_entity.dart';
+import 'package:musiclum/core/shared/domain/usecases/save_song_usecase.dart';
 import 'package:musiclum/core/shared/presentation/widgets/custom_app_bar.dart';
 import 'package:musiclum/core/shared/presentation/widgets/custom_network_image.dart';
 import 'package:musiclum/features/artist_info/domain/usecases/is_song_saved_usecase.dart';
@@ -192,7 +193,12 @@ class _SongList extends StatelessWidget {
                     ),
                     onTap: (isLiked) async {
                       if(isLiked == false){
-                        await getIt<DatabaseService>().saveSong(parsedSongEntity: song, parsedAlbumEntity: album);
+                        await getIt<SaveSongUseCase>()(
+                          SaveSongUseCaseParams(
+                            parsedSongEntity: song, 
+                            parsedAlbumEntity: album,
+                          ),
+                        );
                       } else{
                         await getIt<DatabaseService>().deleteSong(songName: song.title, albumName: album.albumName, artistName: album.artistName);
                       }
