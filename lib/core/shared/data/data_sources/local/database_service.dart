@@ -5,6 +5,7 @@ import 'package:musiclum/core/shared/domain/entities/hive/parsed_song_entity.dar
 
 abstract class DatabaseService{
   List<ParsedAlbumEntity>? getAllAlbums();
+  bool isSongAlreadySaved({required String songName, required String albumName, required String artistName});
   Future<void> saveSong({required ParsedSongEntity parsedSongEntity, required ParsedAlbumEntity parsedAlbumEntity});
 }
 
@@ -22,7 +23,6 @@ class DatabaseServiceImpl implements DatabaseService{
 
     final isAlbumAlreadySaved = _isAlbumAlreadySaved(albums, parsedAlbumEntity.albumName, parsedAlbumEntity.artistName);
     if(isAlbumAlreadySaved){
-      print('isAlbumAlreadySaved, adding: ${parsedSongEntity.title}');
       for(var album in albums){
         if(album.albumName == parsedAlbumEntity.albumName && album.artistName == parsedAlbumEntity.artistName){
           album.songs.add(parsedSongEntity);
@@ -43,6 +43,23 @@ class DatabaseServiceImpl implements DatabaseService{
         return true;
       }
     }
+    return false;
+  }
+  
+  @override
+  bool isSongAlreadySaved({required String songName, required String albumName, required String artistName}) {
+    var albums = getAllAlbums() ?? [];
+
+    for (var album in albums) {
+      if (album.albumName == albumName && album.artistName == artistName) {
+        for (var song in album.songs) {
+          if (song.title == songName) {
+            return true;
+          }
+        }
+      }
+    }
+
     return false;
   }
 }
