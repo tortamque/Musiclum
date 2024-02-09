@@ -20,5 +20,5 @@ class ParsedAlbumEntity extends Equatable{
   final String artistAvatar;
   
   @override
-  List<Object?> get props => [albumCoverUrl, songs];
+  List<Object?> get props => [albumCoverUrl, songs, albumName, artistName, artistAvatar];
 }

@@ -5,6 +5,8 @@ import 'package:musiclum/core/constants/hive_constants.dart';
 import 'package:musiclum/core/shared/data/data_sources/local/database_service.dart';
 import 'package:musiclum/core/shared/data/data_sources/remote/api_service.dart';
 import 'package:musiclum/core/shared/data/repository/search_repository_impl.dart';
+import 'package:musiclum/core/shared/domain/entities/hive/parsed_album_entity.dart';
+import 'package:musiclum/core/shared/domain/entities/hive/parsed_song_entity.dart';
 import 'package:musiclum/core/shared/domain/repository/search_repository.dart';
 import 'package:musiclum/features/artist_info/domain/usecases/get_album_cover_usecase.dart';
 import 'package:musiclum/features/artist_info/domain/usecases/get_album_details_usecase.dart';
@@ -49,6 +51,8 @@ Future<void> _initializeHive() async {
   await Hive.initFlutter();
 
   // Adapters
+  Hive.registerAdapter(ParsedAlbumEntityAdapter());
+  Hive.registerAdapter(ParsedSongEntityAdapter());
 }
 
 Future<Box<dynamic>> _initializeBox() async => Hive.openBox(songsBox);

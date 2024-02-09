@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:like_button/like_button.dart';
 import 'package:musiclum/core/constants/ui_constants.dart';
+import 'package:musiclum/core/service_locator.dart';
+import 'package:musiclum/core/shared/data/data_sources/local/database_service.dart';
 import 'package:musiclum/core/shared/domain/entities/artist_entity.dart';
+import 'package:musiclum/core/shared/domain/entities/hive/parsed_album_entity.dart';
 import 'package:musiclum/core/shared/presentation/widgets/custom_app_bar.dart';
 import 'package:musiclum/core/shared/presentation/widgets/custom_network_image.dart';
 import 'package:musiclum/core/shared/domain/entities/hive/parsed_song_entity.dart';
@@ -80,7 +83,7 @@ class ArtistInfoScreen extends StatelessWidget {
                   name: artistEntity.name ?? 'Anonymous Artist',
                 ),
                 const _Divider(),
-                _SongList(songs: album.songs),
+                _SongList(songs: album.songs, album: album),
               ],
             ),
           ),
@@ -142,9 +145,10 @@ class _ArtistInfo extends StatelessWidget {
 }
 
 class _SongList extends StatelessWidget {
-  const _SongList({required this.songs});
+  const _SongList({required this.songs, required this.album});
 
   final List<ParsedSongEntity> songs;
+  final ParsedAlbumEntity album;
 
   @override
   Widget build(BuildContext context) => Padding(
@@ -177,6 +181,11 @@ class _SongList extends StatelessWidget {
                     Icons.bookmark_outlined,
                     color: isLiked ? Theme.of(context).colorScheme.primary : Colors.grey,
                   ),
+                  onTap: (isLiked) async {
+                    await getIt<DatabaseService>().saveSong(parsedSongEntity: song, parsedAlbumEntity: album);
+
+                    return !isLiked;
+                  },
                 ),
               ],
             ),

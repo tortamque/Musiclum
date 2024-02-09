@@ -15,5 +15,5 @@ class ParsedSongEntity extends Equatable{
   final int index;
   
   @override
-  List<Object?> get props => [title, durationMs];
+  List<Object?> get props => [title, durationMs, index];
 }
