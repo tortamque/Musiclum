@@ -5,6 +5,7 @@ import 'package:musiclum/core/constants/navigator_constants.dart';
 import 'package:musiclum/core/service_locator.dart';
 import 'package:musiclum/features/artist_info/presentation/bloc/artist_info/artist_info_bloc.dart';
 import 'package:musiclum/features/artist_info/presentation/pages/artist_info_screen.dart';
+import 'package:musiclum/features/favourites/presentation/pages/fav_screen.dart';
 import 'package:musiclum/features/main_screen/presentation/bloc/search_artists_bloc.dart';
 import 'package:musiclum/features/main_screen/presentation/pages/main_page.dart';
 
@@ -29,6 +30,7 @@ class MainApp extends StatelessWidget {
       routes: {
         mainScreen: (context) => const MainPage(),
         artistInfoScreen: (context) => const ArtistInfoScreen(),
+        favouritesScreen: (context) => const FavScreen(),
       },
     ),
   );
