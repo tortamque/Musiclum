@@ -1,7 +1,6 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:like_button/like_button.dart';
 import 'package:musiclum/core/constants/ui_constants.dart';
 import 'package:musiclum/core/service_locator.dart';
 import 'package:musiclum/core/shared/domain/entities/artist_entity.dart';
@@ -11,7 +10,7 @@ import 'package:musiclum/core/shared/domain/usecases/delete_song_usecase.dart';
 import 'package:musiclum/core/shared/domain/usecases/save_song_usecase.dart';
 import 'package:musiclum/core/shared/presentation/widgets/custom_app_bar.dart';
 import 'package:musiclum/core/shared/presentation/widgets/custom_network_image.dart';
-import 'package:musiclum/features/artist_info/domain/usecases/is_song_saved_usecase.dart';
+import 'package:musiclum/core/shared/presentation/widgets/like_button.dart';
 import 'package:musiclum/features/artist_info/presentation/bloc/artist_info/artist_info_bloc.dart';
 import 'package:musiclum/features/artist_info/presentation/bloc/artist_info/artist_info_state.dart';
 
@@ -165,53 +164,21 @@ class _SongList extends StatelessWidget {
               scrollDirection: Axis.horizontal,
               child: Row(
                 children: [
+                  CustomLikeButton(
+                    songName: song.title, 
+                    albumName: album.albumName, 
+                    artistName: album.artistName, 
+                    song: song, 
+                    album: album, 
+                    onDelete: getIt<DeleteSongUseCase>(),
+                    onSave: getIt<SaveSongUseCase>(),
+                  ),
                   Text(
                     '${index + 1}) ${song.title} | ${song.durationMs ~/ 60000}:${(song.durationMs % 60000 ~/ 1000).toString().padLeft(2, '0')}',
                     style: const TextStyle(
                       fontSize: 18,
                     )
                   ),
-                  LikeButton(
-                    isLiked: getIt<IsSongSavedUseCase>()(
-                      IsSongSavedParams(
-                        songName: song.title,
-                        albumName: album.albumName,
-                        artistName: album.artistName,
-                      ),
-                    ),
-                    circleColor: CircleColor(
-                      start: Theme.of(context).colorScheme.primary,
-                      end: Theme.of(context).colorScheme.onPrimary,
-                    ),
-                    bubblesColor: BubblesColor(
-                      dotPrimaryColor: Theme.of(context).colorScheme.primary,
-                      dotSecondaryColor: Theme.of(context).colorScheme.onPrimary,
-                    ),
-                    likeBuilder: (isLiked) => Icon(
-                      Icons.bookmark_outlined,
-                      color: isLiked ? Theme.of(context).colorScheme.primary : Colors.grey,
-                    ),
-                    onTap: (isLiked) async {
-                      if(isLiked == false){
-                        await getIt<SaveSongUseCase>()(
-                          SaveSongUseCaseParams(
-                            parsedSongEntity: song, 
-                            parsedAlbumEntity: album,
-                          ),
-                        );
-                      } else{
-                        await getIt<DeleteSongUseCase>()(
-                          DeleteSongUseCaseParams(
-                            songName: song.title, 
-                            albumName: album.albumName, 
-                            artistName: album.artistName,
-                          ),
-                        );
-                      }
-
-                      return !isLiked;
-                    },
-                  )
                 ],
               ),
             ),
