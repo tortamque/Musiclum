@@ -6,9 +6,10 @@ import 'package:musiclum/core/service_locator.dart';
 import 'package:musiclum/core/shared/data/data_sources/local/database_service.dart';
 import 'package:musiclum/core/shared/domain/entities/artist_entity.dart';
 import 'package:musiclum/core/shared/domain/entities/hive/parsed_album_entity.dart';
+import 'package:musiclum/core/shared/domain/entities/hive/parsed_song_entity.dart';
 import 'package:musiclum/core/shared/presentation/widgets/custom_app_bar.dart';
 import 'package:musiclum/core/shared/presentation/widgets/custom_network_image.dart';
-import 'package:musiclum/core/shared/domain/entities/hive/parsed_song_entity.dart';
+import 'package:musiclum/features/artist_info/domain/usecases/is_song_saved_usecase.dart';
 import 'package:musiclum/features/artist_info/presentation/bloc/artist_info/artist_info_bloc.dart';
 import 'package:musiclum/features/artist_info/presentation/bloc/artist_info/artist_info_state.dart';
 
@@ -144,53 +145,65 @@ class _ArtistInfo extends StatelessWidget {
   );
 }
 
-class _SongList extends StatelessWidget {
+class _SongList extends StatefulWidget {
   const _SongList({required this.songs, required this.album});
 
   final List<ParsedSongEntity> songs;
   final ParsedAlbumEntity album;
 
   @override
+  State<_SongList> createState() => _SongListState();
+}
+
+class _SongListState extends State<_SongList> {
+  @override
   Widget build(BuildContext context) => Padding(
     padding: const EdgeInsets.symmetric(horizontal: 20),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: songs.map(
-        (song) => Padding(
-          padding: const EdgeInsets.symmetric(vertical: 2.5),
-          child: SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Row(
-              children: [
-                Text(
-                  '${song.index}) ${song.title} | ${song.durationMs ~/ 60000}:${(song.durationMs % 60000 ~/ 1000).toString().padLeft(2, '0')}',
-                  style: const TextStyle(
-                    fontSize: 18,
-                  )
-                ),
-                LikeButton(
-                  circleColor: CircleColor(
-                    start: Theme.of(context).colorScheme.primary,
-                    end: Theme.of(context).colorScheme.onPrimary,
+      children: widget.songs.map(
+        (song)=> Padding(
+            padding: const EdgeInsets.symmetric(vertical: 2.5),
+            child: SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: [
+                  Text(
+                    '${song.index}) ${song.title} | ${song.durationMs ~/ 60000}:${(song.durationMs % 60000 ~/ 1000).toString().padLeft(2, '0')}',
+                    style: const TextStyle(
+                      fontSize: 18,
+                    )
                   ),
-                  bubblesColor: BubblesColor(
-                    dotPrimaryColor: Theme.of(context).colorScheme.primary,
-                    dotSecondaryColor: Theme.of(context).colorScheme.onPrimary,
-                  ),
-                  likeBuilder: (isLiked) => Icon(
-                    Icons.bookmark_outlined,
-                    color: isLiked ? Theme.of(context).colorScheme.primary : Colors.grey,
-                  ),
-                  onTap: (isLiked) async {
-                    await getIt<DatabaseService>().saveSong(parsedSongEntity: song, parsedAlbumEntity: album);
+                  LikeButton(
+                    isLiked: getIt<IsSongSavedUseCase>()(
+                      IsSongSavedParams(
+                        songName: song.title,
+                        albumName: widget.album.albumName,
+                        artistName: widget.album.artistName,
+                      ),
+                    ),
+                    circleColor: CircleColor(
+                      start: Theme.of(context).colorScheme.primary,
+                      end: Theme.of(context).colorScheme.onPrimary,
+                    ),
+                    bubblesColor: BubblesColor(
+                      dotPrimaryColor: Theme.of(context).colorScheme.primary,
+                      dotSecondaryColor: Theme.of(context).colorScheme.onPrimary,
+                    ),
+                    likeBuilder: (isLiked) => Icon(
+                      Icons.bookmark_outlined,
+                      color: isLiked ? Theme.of(context).colorScheme.primary : Colors.grey,
+                    ),
+                    onTap: (isLiked) async {
+                      await getIt<DatabaseService>().saveSong(parsedSongEntity: song, parsedAlbumEntity: widget.album);
 
-                    return !isLiked;
-                  },
-                ),
-              ],
+                      return !isLiked;
+                    },
+                  )
+                ],
+              ),
             ),
           ),
-        ),
       ).toList(),
     ),
   );
