@@ -16,7 +16,7 @@ class ArtistPreviewCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) => GestureDetector(
     onTap: () {
-      BlocProvider.of<ArtistInfoBloc>(context).add(GetArtistInfoEvent(artistId: ''));
+      BlocProvider.of<ArtistInfoBloc>(context).add(GetArtistInfoEvent(artistId: artistEntity.id!));
       Navigator.pushNamed(context, artistInfoScreen, arguments: artistEntity);
     },
     child: Card(

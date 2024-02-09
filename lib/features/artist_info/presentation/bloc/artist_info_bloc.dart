@@ -2,6 +2,8 @@
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:musiclum/core/resources/data_state.dart';
+import 'package:musiclum/core/shared/domain/entities/album_entity.dart';
+import 'package:musiclum/core/shared/domain/entities/user_album_entity.dart';
 import 'package:musiclum/features/artist_info/domain/usecases/get_album_details_usecase.dart';
 import 'package:musiclum/features/artist_info/domain/usecases/get_albums_usecase.dart';
 import 'package:musiclum/features/artist_info/presentation/bloc/artist_info_event.dart';
@@ -16,22 +18,28 @@ class ArtistInfoBloc extends Bloc<ArtistInfoEvent, ArtistInfoState> {
   final GetAlbumDetailsUseCase _getAlbumDetailsUseCase;
 
   Future<void> _onSearchArtists(GetArtistInfoEvent event, Emitter<ArtistInfoState> emitter) async{
-    final dataState = await _getAlbumsUseCase(event.artistId);
-    final a = await _getAlbumDetailsUseCase('7m7h3FCsN4UDopNjDdggTb');
-    print(a.data!.items![0].name);
+    final dataStateAlbums = await _getAlbumsUseCase(event.artistId);
+    late final List<UserAlbumEntity> albums;
 
-    if(dataState is DataSuccess){
-      emit(
-        GetArtistInfoDone(dataState.data!),
-      );
+    if(dataStateAlbums is DataFailed){
+      return;
+    } else{
+      albums = dataStateAlbums.data!;
     }
 
-    if(dataState is DataFailed){
-      emit(
-        GetArtistInfoError(
-          dataState.error!,
-        ),
-      );
+    for (final album in albums) {
+      final dataStateAlbumDetails = await _getAlbumDetailsUseCase(album.id!);
+      late final List<AlbumTrackEntity> songs;
+
+      if (dataStateAlbumDetails is DataFailed) {
+        return;
+      } else {
+        songs = dataStateAlbumDetails.data!.items ?? [];
+      }
+
+      for (final song in songs) {
+        print('${song.name} - ${song.durationMs} -');
+      }
     }
   }
 }
