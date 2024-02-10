@@ -136,7 +136,7 @@ class _SongCard extends StatelessWidget {
       scrollDirection: Axis.horizontal,
       child: Row(
         children: [
-          _Index(index: index + 1),
+          _Index(index: index),
           const SizedBox(width: 10),
           _AlbumCover(albumCoverUrl: song.albumCoverUrl),
           const SizedBox(width: 10),
